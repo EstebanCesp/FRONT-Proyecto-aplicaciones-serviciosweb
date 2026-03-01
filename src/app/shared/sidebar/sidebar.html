@@ -1,0 +1,38 @@
+<!-- Botón hamburguesa visible en móviles -->
+<button class="sidebar-toggle" type="button" (click)="toggle()">
+    ☰ Menú
+  </button>
+  
+  <nav class="sidebar" [class.sidebar--open]="isOpen()">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Mi Aplicación</span>
+      <button class="sidebar__close" type="button" (click)="toggle()">
+        ✕
+      </button>
+    </div>
+  
+    <ul class="sidebar__nav">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Inicio
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/about"
+          routerLinkActive="sidebar__link--active"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Acerca de
+        </a>
+      </li>
+      <!-- Agrega más enlaces según tus rutas -->
+    </ul>
+  </nav>
