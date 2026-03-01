@@ -36,19 +36,13 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
+    justify-content: center;
+    padding-top: 4px;
   }
   
   .sidebar__title {
     font-weight: 600;
     font-size: 1rem;
-  }
-  
-  .sidebar__close {
-    border: none;
-    background: transparent;
-    color: #9ca3af;
-    font-size: 1.1rem;
-    cursor: pointer;
   }
   
   .sidebar__nav {
