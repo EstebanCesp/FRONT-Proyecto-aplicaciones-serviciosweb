@@ -5,8 +5,8 @@ Esta guía está pensada para tu proyecto actual, que usa **componentes standalo
 - **Versión aproximada**: Angular 17+ con standalone.
 - **Objetivo**:
   - **Tener varias pantallas** en rutas diferentes.
-  - **Aplicar un diseño responsive global** a toda la app.
-  - **Crear una sidebar** que use routing, sea responsive y se pueda **ocultar/mostrar**.
+  - **Aplicar un diseño responsive global** pensado para **móviles y escritorio**.
+  - **Crear una sidebar** que use routing, sea responsive (móvil ↔ escritorio) y se pueda **ocultar/mostrar**.
 
 ---
 
@@ -113,13 +113,13 @@ Después podrás definir la clase `.link-activo` en CSS.
 
 ---
 
-## 2. Diseño responsive global para toda la app
+## 2. Diseño responsive global para móviles y escritorio
 
 En Angular, los estilos globales suelen ir en `src/styles.css` (que ya está configurado en `angular.json`) y cada componente puede tener sus propios estilos locales (`.css`).
 
 ### 2.1. Estilos base en `src/styles.css`
 
-Puedes definir ahí un sistema sencillo mobile-first:
+La idea es usar un enfoque **mobile-first**: por defecto optimizado para **móviles**, y con `@media` para ajustar en **tablet/escritorio**.
 
 ```css
 /* src/styles.css */
@@ -170,11 +170,30 @@ a:hover {
 ```
 
 Con esto:
+- En **móviles** se ve bien sin necesidad de `@media`.
+- En **tablet/escritorio** los `@media` ajustan el espaciado y se aprovecha mejor el ancho.
 - Todos los componentes heredan **tipografía y colores base**.
 - Usas `.container` para centrar contenido de manera consistente.
-- Los `@media` ajustan el diseño en pantallas más grandes.
 
-### 2.2. Layout de la app en `app.html` y `app.css`
+### 2.2. Cómo centrar contenido con `.container`
+
+Para centrar secciones de contenido de forma responsive (móvil y escritorio), solo necesitas **envolver tu contenido** en un elemento con la clase `container`:
+
+```html
+<div class="container">
+  <h1>Mi título</h1>
+  <p>Contenido centrado con ancho máximo de 1200px.</p>
+</div>
+```
+
+Lo que hace cada propiedad de `.container`:
+
+- **`width: 100%`** → ocupa todo el ancho disponible (ideal en móviles).
+- **`max-width: 1200px`** → limita el ancho máximo en pantallas grandes para que el contenido no se vea demasiado ancho.
+- **`margin: 0 auto`** → centra horizontalmente el bloque dentro de la página.
+- **`padding: 0 1rem`** (y más padding en los `@media`) → añade espacio lateral para que el contenido no pegue contra los bordes.
+
+### 2.3. Layout de la app en `app.html` y `app.css`
 
 Vamos a preparar el layout principal pensando ya en la **sidebar**:
 
@@ -199,7 +218,7 @@ Más adelante sustituiremos este layout simple por uno con **sidebar + contenido
 
 ---
 
-## 3. Sidebar con routing y diseño responsive
+## 3. Sidebar con routing y diseño responsive (móvil y escritorio)
 
 La idea es:
 - Crear un **componente `Sidebar` standalone**.
