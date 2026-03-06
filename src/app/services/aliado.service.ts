@@ -6,9 +6,10 @@ import { aliadoCreate, aliadoUpdate } from "../models/aliado";
     providedIn:'root'
 })
 export class aliadoService {
-    private readonly endpoint = '/aliados'
-
+    private readonly endpoint = '/aliado'
+    
     constructor(private apiService : ApiService){}
+
 
     getAliados(){
         return this.apiService.get(this.endpoint)
