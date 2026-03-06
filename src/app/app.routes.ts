@@ -3,16 +3,12 @@ import { Aliados } from './components/aliados/aliados';
 
 export const routes: Routes = [
     {
+        path: 'aliados',
+        component: Aliados,
+    },
+    {
         path: '**',
         redirectTo: '',
-        pathMatch: 'full'
+        pathMatch: 'full',
     },
-    //{
-    //    path: 'about',
-    //    component: AboutComponent
-    //},
-    {
-        path: '/aliados',
-        component : Aliados
-    }
 ];
