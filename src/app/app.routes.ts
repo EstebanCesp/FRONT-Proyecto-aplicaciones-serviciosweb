@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ApoyoProfesoral } from './components/apoyo-profesoral/apoyo-profesoral';
+import { Aliados } from './components/aliados/aliados';
 
 export const routes: Routes = [
     {
@@ -7,12 +8,12 @@ export const routes: Routes = [
         component: ApoyoProfesoral
     },
     {
+        path: 'aliados',
+        component: Aliados,
+    },
+    {
         path: '**',
         redirectTo: '',
-        pathMatch: 'full'
+        pathMatch: 'full',
     },
-    //{
-    //    path: 'about',
-    //    component: AboutComponent
-    //},
 ];

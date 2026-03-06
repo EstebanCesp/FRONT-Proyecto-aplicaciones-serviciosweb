@@ -18,7 +18,7 @@ export class ApiService{
         return this.http.post(this.baseUrl+endpoint, data)
     }
 
-    put(endpoint :string, campoIdent:string, valorIdent:any, data:any){
+    put(endpoint :string, campoIdent:string, valorIdent:any , data:any){
         return this.http.put(this.baseUrl+endpoint+'/'+campoIdent+'/'+valorIdent, data)
     }
 

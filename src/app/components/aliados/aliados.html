@@ -1,0 +1,76 @@
+<div class="contenedor_general">
+  <header class="cabecera_contenido">
+    <div class="cabecera_texto">
+      <h1 class="titulo_listado">Listado de Aliados</h1>
+      <p class="descripcion_listado">Administre las organizaciones aliadas y sus convenios estratégicos.</p>
+    </div>
+    <button type="button" class="btn_registrar" (click)="abrirCrear()">Registrar Aliado</button>
+  </header>
+
+  <div class="contenedor_tabla">
+    <table class="tabla">
+      <thead class="tabla_cabecera">
+        <tr>
+          <th>NIT</th>
+          <th>RAZÓN SOCIAL</th>
+          <th>PERSONA DE CONTACTO</th>
+          <th>CORREO</th>
+          <th>TELÉFONO</th>
+          <th>CIUDAD</th>
+          <th>ACCIONES</th>
+        </tr>   
+      </thead>
+      <tbody class="cuerpo_tabla">
+        <tr *ngFor="let aliado of listaAliados" class="linea_dato">
+          <td>{{ aliado.nit }}</td>
+          <td>{{ aliado.razon_social }}</td>
+          <td>{{ aliado.nombre_contacto }}</td>
+          <td>{{ aliado.correo }}</td>
+          <td>{{ aliado.telefono }}</td>
+          <td>{{ aliado.ciudad }}</td>
+          <td class="celda_acciones">
+            <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(aliado)">Editar</button>
+            <button type="button" class="btn_accion btn_eliminar" (click)="eliminarAliado(aliado.nit)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="form-card" *ngIf="modoFormulario !== null">
+    <h2>{{ modoFormulario === 'crear' ? 'Nuevo Aliado' : 'Editar Aliado' }}</h2>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nit</label>
+        <input type="number" [(ngModel)]="formulario.nit"
+               [disabled]="modoFormulario === 'editar'" />
+      </div>
+      <div class="form-group">
+        <label>razon_social</label>
+        <input type="text" [(ngModel)]="formulario.razon_social" maxlength="45" />
+      </div>
+      <div class="form-group">
+        <label>Nombre_contacto</label>
+        <input type="text" [(ngModel)]="formulario.nombre_contacto" maxlength="80" />
+      </div>
+      <div class="form-group">
+        <label>Correo</label>
+        <input type="text" [(ngModel)]="formulario.correo" />
+      </div>
+      <div class="form-group">
+        <label>Telefono</label>
+        <input type="text" [(ngModel)]="formulario.telefono" />
+      </div>
+    </div>
+    <div class="form-group">
+        <label>ciudad</label>
+        <input type="text" [(ngModel)]="formulario.ciudad" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+      <button class="btn-secondary" (click)="guardar()">Guardar</button>
+    </div>
+  </div>
+
