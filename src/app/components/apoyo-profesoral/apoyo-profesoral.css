@@ -1,0 +1,282 @@
+.contenedor_general {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Cabecera */
+.cabecera_contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cabecera_texto {
+  flex: 1;
+  min-width: 200px;
+}
+
+.titulo_listado {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.35rem 0;
+}
+
+.descripcion_listado {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.btn_registrar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn_registrar:hover {
+  background: #1d4ed8;
+}
+
+.btn_registrar::before {
+  content: "+";
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Card de la tabla */
+.contenedor_tabla {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla_cabecera {
+  background: #f9fafb;
+}
+
+.tabla_cabecera th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cuerpo_tabla .linea_dato {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cuerpo_tabla .linea_dato:hover {
+  background: #fafafa;
+}
+
+.cuerpo_tabla td {
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.pill.ciudad {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.celda_acciones {
+  white-space: nowrap;
+}
+
+.btn_accion {
+  padding: 0.35rem 0.65rem;
+  margin-right: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
+}
+
+.btn_accion:hover {
+  background: #f3f4f6;
+}
+
+.btn_editar:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.btn_eliminar:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .contenedor_tabla {
+    overflow-x: auto;
+  }
+
+  .tabla {
+    min-width: 700px;
+  }
+
+  .cabecera_contenido {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn_registrar {
+    align-self: flex-start;
+  }
+}
+.badge {
+  background-color: #eff6ff;
+  color: #2563eb;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Botones de acción */
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: #f0f9ff;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover {
+  background: #e0f2fe;
+}
+
+.btn-delete {
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-delete:hover {
+  background: #ffe4e6;
+}
+
+/* Formulario */
+.form-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.form-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+}
+
+.form-group input:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn-secondary {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #f9fafb;
+}
