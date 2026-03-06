@@ -20,6 +20,18 @@
           Inicio
         </a>
       </li>
+      <li>
+        <a
+          routerLink="/aliados"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Aliados
+        </a>
+      </li>
+
       <!-- Agrega más enlaces según tus rutas -->
     </ul>
   </nav>
