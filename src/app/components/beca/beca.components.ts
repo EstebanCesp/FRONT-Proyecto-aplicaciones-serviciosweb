@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BecaService } from '../../services/beca.service';
 import { Beca } from '../../models/Beca';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-beca',
+  standalone: true,                        // ← agrega esto
+  imports: [FormsModule, CommonModule],    // ← agrega esto
   templateUrl: './beca.component.html',
   styleUrls: ['./beca.component.css']
 })
