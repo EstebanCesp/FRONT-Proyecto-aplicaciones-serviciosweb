@@ -1,1 +1,26 @@
-<p>aliados works!</p>
+<div class="contenedor_general"> 
+    <div class="contenedor_tabla">
+        <table class="tabla">
+            <thead class="tabla_cabecera">
+                <tr>
+                    <th>Nit</th>
+                    <th>Razon Social</th>
+                    <th>Nombre Contacto</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Ciudad</th>
+                </tr>
+            </thead>
+            <tbody class="cuerpo_tabla">
+                <tr *ngFor="let aliado of this.listaAliados" class="linea_dato">
+                    <td>{{ aliado.nit }}</td>
+                    <td>{{ aliado.razon_social }}</td>
+                    <td>{{ aliado.nombre_contacto }}</td>
+                    <td>{{ aliado.correo }}</td>
+                    <td>{{ aliado.telefono }}</td>
+                    <td>{{ aliado.ciudad }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
