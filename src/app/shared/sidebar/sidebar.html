@@ -20,6 +20,17 @@
           Inicio
         </a>
       </li>
+       <li>
+        <a
+          routerLink="/apoyo_profesoral"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Apoyo Profesoral
+        </a>
+      </li>
       <!-- Agrega más enlaces según tus rutas -->
     </ul>
   </nav>
