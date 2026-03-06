@@ -19,11 +19,11 @@ export class aliadoService {
         return this.apiService.post(this.endpoint, data)
     }
 
-    putAliado(data:aliadoUpdate, identificador: string){
+    putAliado(data:aliadoUpdate, identificador: number){
         return this.apiService.put(this.endpoint, 'nit', identificador, data)
     }
 
-    deleteAliado(identificador:string){
+    deleteAliado(identificador:number){
         return this.apiService.delete(this.endpoint, 'nit', identificador)
     }
 }
