@@ -1,0 +1,62 @@
+<div class="contenedor_general">
+  <header class="cabecera_contenido">
+    <div class="cabecera_texto">
+      <h1 class="titulo_listado">Apoyo Profesoral</h1>
+    </div>
+    <button type="button" class="btn_registrar" (click)="abrirCrear()" >Registrar apoyo profesoral</button>
+  </header>
+
+  <div class="contenedor_tabla">
+    <table class="tabla">
+      <thead class="tabla_cabecera">
+        <tr>
+          <th>ESTUDIOS</th>
+          <th>CON APOYO</th>
+          <th>INSTITUCIÓN</th>
+          <th>TIPO</th>
+        </tr>   
+      </thead>
+      <tbody class="cuerpo_tabla">
+        <tr *ngFor="let apoyo_profesoral of listaApoyoProfesoral" class="linea_dato">
+            <td>{{ apoyo_profesoral.estudios }}</td>
+            <td>{{ apoyo_profesoral.con_apoyo }}</td>
+            <td>{{ apoyo_profesoral.institucion }}</td>
+            <td>{{ apoyo_profesoral.tipo }}</td>
+          <td class="celda_acciones">
+            <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(apoyo_profesoral.estudios)">Editar</button>
+            <button type="button" class="btn_accion btn_eliminar" (click)="eliminarApoyoProfesoral(apoyo_profesoral.estudios)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+<div class="form-card" *ngIf="modoFormulario !== null">
+        <h2>{{ modoFormulario === 'crear' ? 'Apoyo Profesorar' : 'Editar Apoyo Profesoral' }}</h2>
+    
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Estudios</label>
+            <input type="number" [(ngModel)]="formulario.estudios"
+                   [disabled]="modoFormulario === 'editar'" />
+          </div>
+          <div class="form-group">
+            <label>Con apoyo</label>
+            <input type="text" [(ngModel)]="formulario.con_apoyo" maxlength="45" />
+          </div>
+          <div class="form-group">
+            <label>institucion</label>
+            <input type="text" [(ngModel)]="formulario.institucion" maxlength="80" />
+          </div>
+          <div class="form-group">
+            <label>Tipo</label>
+            <input type="text" [(ngModel)]="formulario.tipo" />
+          </div>
+    
+        <div class="form-actions">
+          <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+          <button class="btn-secondary" (click)="guardar()">Guardar</button>
+        </div>
+      </div>
+  </div>
