@@ -35,6 +35,9 @@ Para esta entrega cada uno debera relizar las siguientes tareas
 
  - [ ] Realizar las correcciones necesarias segun la retroalimentacion del profesor ( terminar los cruds correspondientes, o modificar los cruds de las tablas que no se debian realizar)
 
- - [ ] En el archivo `procedimientos SQL/procedimientos.sql` deberan realizar la creacion de los procedimientos almacenados necesarios para la realizacion de los cruds (tambien deberan agregar a su base de datos local dicho procedimiento)
+ - [ ] En el archivo `procedimientos SQL/procedimientos.sql` deberan realizar la creacion de los procedimientos almacenados necesarios para la realizacion de los cruds (tambien deberan agregar a su base de datos local dichos procedimientos)
+
+ - [ ] Con la api actualizada deberan usar el endpoint correspondiente para usar los procedimientos y generar el crud
+
 
  
