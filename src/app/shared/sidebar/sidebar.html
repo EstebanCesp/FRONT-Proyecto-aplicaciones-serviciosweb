@@ -29,7 +29,7 @@
           class="sidebar__link"
           (click)="close()"
         >
-          Inicio
+          Apoyo profesoral
         </a>
       </li>
 
@@ -41,6 +41,18 @@
           class="sidebar__link"
           (click)="close()"
         >
+        Aliados
+         </a>
+      </li>
+      <li>
+        <a
+          routerLink="/beca"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+        Beca
          </a>
       </li>
     </ul>
