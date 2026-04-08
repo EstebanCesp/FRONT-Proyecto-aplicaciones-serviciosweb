@@ -13,8 +13,7 @@ export interface alianzasp_read{
     nombresp:string
 }
 
-export interface alianzasp_create{
-    nombresp:string
+export interface alianzasp_create extends alianzasp_read{
     aliado:number
     departamento:number
     fecha_inicio:Date
@@ -22,8 +21,7 @@ export interface alianzasp_create{
     docente:number
 }
 
-export interface alianzasp_update{
-    nombresp:string | null
+export interface alianzasp_update extends alianzasp_read{
     aliado:number | null
     departamento:number | null
     fecha_inicio:Date | null
@@ -31,8 +29,7 @@ export interface alianzasp_update{
     docente:number | null
 }
 
-export interface alianzasp_delete{
-    nombresp:string
+export interface alianzasp_delete extends alianzasp_read{
     aliado:number
     departamento:number
 }
