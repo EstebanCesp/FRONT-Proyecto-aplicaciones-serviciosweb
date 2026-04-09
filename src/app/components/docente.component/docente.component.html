@@ -1,0 +1,124 @@
+<div class="contenedor_general">
+    <header class="cabecera_contenido">
+        <div class="cabecera_texto">
+            <h1 class="titulo_listado">Listado de Docentes</h1>
+            <p class="descripcion_listado">Administre los docentes y sus datos académicos.</p>
+        </div>
+        <button type="button" class="btn_registrar" (click)="abrirCrear()">Registrar Docente</button>
+    </header>
+
+    <div class="contenedor_tabla">
+        <table class="tabla">
+            <thead class="tabla_cabecera">
+                <tr>
+                    <th>CEDULA DOCENTE</th>
+                    <th>NOMBRES DOCENTE</th>
+                    <th>APELLIDOS DOCENTE</th>
+                    <th>CORREO DOCENTE</th>
+                    <th>LINEA INVESTIGACION</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody class="cuerpo_tabla">
+                <tr *ngFor="let docente of listaDocentes" class="linea_dato">
+                    <td>{{ docente.cedula }}</td>
+                    <td>{{ docente.nombres }}</td>
+                    <td>{{ docente.apellidos }}</td>
+                    <td>{{ docente.correo }}</td>
+                    <td>{{ docente.linea_investigacion.nombre }}</td>
+                    <td class="celda_acciones">
+                        <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(docente)">Editar</button>
+                        <button type="button" class="btn_accion btn_eliminar" (click)="eliminar(docente)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-card" *ngIf="modoFormulario !== null">
+        <h2>{{ modoFormulario === 'crear' ? 'Nuevo Docente' : 'Editar Docente' }}</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Cedula Docente</label>
+                <input type="text" [(ngModel)]="Formulario.cedula" [disabled]="modoFormulario === 'editar'" />
+            </div>
+            <div class="form-group">
+                <label>Nombres Docente</label>
+                <input type="text" [(ngModel)]="Formulario.nombres" />
+            </div>
+            <div class="form-group">
+                <label>Apellidos Docente</label>
+                <input type="text" [(ngModel)]="Formulario.apellidos" />
+            </div>
+            <div class="form-group">
+                <label>Genero</label>
+                <select [(ngModel)]="Formulario.genero">
+                    <option value="null">Seleccione un genero</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Cargo</label>
+                <input type="text" [(ngModel)]="Formulario.cargo" />
+            </div>
+            <div class="form-group">
+                <label>Fecha de nacimiento</label>
+                <input type="date" [(ngModel)]="Formulario.fecha_nacimiento" />
+            </div>
+            <div class="form-group">
+                <label>Correo Docente</label>
+                <input type="email" [(ngModel)]="Formulario.correo" />
+            </div>
+            <div class="form-group">
+                <label>Telefono Docente</label>
+                <input type="text" [(ngModel)]="Formulario.telefono" />
+            </div>
+            <div class="form-group">
+                <label>URL Cvlac</label>
+                <input type="text" [(ngModel)]="Formulario.url_cvlac" />
+            </div>
+            <div class="form-group">
+                <label>Fecha de Actualizacion</label>
+                <input type="date" [(ngModel)]="Formulario.fecha_actualizacion" />
+            </div>
+            <div class="form-group">
+                <label>Escalafon</label>
+                <input type="text" [(ngModel)]="Formulario.escalafon" />
+            </div>
+            <div class="form-group">
+                <label>Perfil</label>
+                <input type="text" [(ngModel)]="Formulario.perfil" />
+            </div>
+            <div class="form-group">
+                <label>Categoria Minciencias</label>
+                <select [(ngModel)]="Formulario.cat_minciencia">
+                    <option value="null">Seleccione una categoria</option>
+                    <option value="Emerito">Emerito</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Asociado">Asociado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Convocatoria Minciencias</label>
+                <input type="text" [(ngModel)]="Formulario.conv_minciencia" />
+            </div>
+            <div class="form-group">
+                <label>Nacionalidad</label>
+                <input type="text" [(ngModel)]="Formulario.nacionalidaad" />
+            </div>
+            <div class="form-group">
+                <label>Linea Investigacion</label>
+                <select [(ngModel)]="Formulario.linea_investigacion" required>
+                    <option *ngFor="let linea_investigacion of listaLineasInvestigacion" [value]="linea_investigacion.id">{{linea_investigacion.nombre}}</option>
+                </select>
+            </div>
+        
+        </div>
+        <div class="form-actions">
+            <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+            <button class="btn-secondary" (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</div>

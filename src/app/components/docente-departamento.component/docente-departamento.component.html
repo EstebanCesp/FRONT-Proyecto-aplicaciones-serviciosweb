@@ -1,0 +1,97 @@
+<div class="contenedor_general">
+  <header class="cabecera_contenido">
+   <div class="cabecera_texto">
+     <h1 class="titulo_listado">Listado de Docentes</h1>
+     <p class="descripcion_listado">Administre los docentes y sus datos académicos.</p>
+   </div>
+   <button type="button" class="btn_registrar" (click)="abrirCrear()" >Registrar Docente</button>
+  </header>
+  
+  <div class="contenedor_tabla">
+   <table class="tabla">
+     <thead class="tabla_cabecera">
+       <tr>
+         <th>CEDULA DOCENTE</th>
+         <th>NOMBRES DOCENTE</th>
+         <th>APELLIDOS DOCENTE</th>
+         <th>NOMBRE PROGRAMA</th>
+         <th>CIUDAD PROGRAMA</th>
+         <th>DEDICACION</th>
+         <th>MODALIDAD</th>
+         <th>FECHA INGRESO</th>
+         <th>FECHA SALIDA</th>
+         <th>ACCIONES</th>
+       </tr>   
+     </thead>
+     <tbody class="cuerpo_tabla">
+       <tr *ngFor="let docente_departamento of listaDocenteDepartamento" class="linea_dato">
+         <td>{{ docente_departamento.docente.cedula}}</td>
+         <td>{{ docente_departamento.docente.nombres}}</td>
+         <td>{{ docente_departamento.docente.apellidos}}</td>
+         <td>{{ docente_departamento.departamento.nombre}}</td>
+         <td>{{ docente_departamento.departamento.ciudad}}</td>
+         <td>{{ docente_departamento.dedicacion}}</td>
+         <td>{{ docente_departamento.modalidad }}</td>
+         <td>{{ docente_departamento.fecha_ingreso }}</td>
+         <td>{{ docente_departamento.fecha_salida }}</td>
+         <td class="celda_acciones">
+           <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(docente_departamento)" >Editar</button>
+           <button type="button" class="btn_accion btn_eliminar" (click)="eliminar(docente_departamento)")>Eliminar</button>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+  </div>
+  <div class="form-card" *ngIf="modoFormulario !== null">
+   <h2>{{ modoFormulario === 'crear' ? 'Nuevo Docente' : 'Editar Docente' }}</h2>
+   <div class="form-grid">
+     <div class="form-group">
+       <label>Cedula Docente</label>
+       <select [(ngModel)]="Formulario.docente" [disabled]="modoFormulario === 'editar' ">
+         <option value="null">Seleccione un docente</option>
+         <option *ngFor="let docente of listaDocentes" [value]="docente.cedula">{{docente.cedula}}</option>
+       </select>
+     </div>
+     <div class="form-group">
+       <label>Departamento</label>
+       <select  [disabled]="modoFormulario === 'editar'" [(ngModel)]="Formulario.departamento">
+         <option value="null">Seleccione un departamento</option>
+         <option *ngFor="let departamento of listaDepartamentos" [value]="departamento.id">{{departamento.nombre}}</option>
+       </select>
+     </div>
+     <div class="form-group">
+       <label>Dedicación</label>
+       <select [(ngModel)]="Formulario.dedicacion">
+        <option value="null">Seleccione una dedicación</option>
+        <option value="Tiempo Completo">Tiempo Completo</option>
+        <option value="Medio Tiempo">Medio Tiempo</option>
+        <option value="Por Horas">Por Horas</option>
+    </select>
+     </div>
+     <div class="form-group">
+         <label>Modalidad</label>
+         <select [(ngModel)]="Formulario.modalidad">
+             <option value="null">Seleccione una modalidad</option>
+             <option value="Virtual">Virtual</option>
+             <option value="Presencial">Presencial</option>
+             <option value="Híbrido">Híbrido</option>
+         </select>
+     </div>
+     <div class="form-group">
+         <label>Fecha de Ingreso</label>
+         <input type="date" [(ngModel)]="Formulario.fecha_ingreso" />
+       </div>
+     <div class="form-group">
+       <label>Fecha de Salida</label>
+       <input type="date" [(ngModel)]="Formulario.fecha_salida" />
+     </div>
+   </div>
+   <div class="form-actions">
+     <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+     <button class="btn-secondary" (click)="guardar()">Guardar</button>
+   </div>
+  </div>
+</div>
+
+    
+    
