@@ -16,11 +16,11 @@ export interface docenteResponse{
     cat_minciencia: string
     conv_minciencia: string
     nacionalidaad:string
-    linea_investigacion_principal: linea_investigacion
+    linea_investigacion:any
 }
 
 export interface docente_Read{
-    nombresp :string
+    nombreSP :string
 }
 
 export interface docente_Create extends docente_Read{
@@ -48,7 +48,7 @@ export interface docente_Update extends docente_Read{
     apellidos: string | null
     genero: string | null
     cargo: string | null
-    fecha_nacimient: Date | null
+    fecha_nacimiento: Date | null
     correo: string | null
     telefono: string | null
     url_cvlac: string | null
@@ -58,7 +58,7 @@ export interface docente_Update extends docente_Read{
     cat_minciencia: string | null
     conv_minciencia: string | null
     nacionalidaad:string | null
-    linea_investigacion_principal: number | null
+    linea_investigacion: number | null
 }
 
 export interface docente_Delete extends docente_Read{

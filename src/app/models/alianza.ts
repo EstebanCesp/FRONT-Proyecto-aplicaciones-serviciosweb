@@ -3,14 +3,14 @@ import { docenteResponse } from "./docente"
 import { programa } from "./programa"
 
 export interface alianzaResponse{
-    aliado:Aliado
-    departamento:programa
+    aliado:any
+    departamento:any
     fecha_inicio:Date
     fecha_fin:Date
-    docente:docenteResponse
+    docente:any
 }
 export interface alianzasp_read{
-    nombresp:string
+    nombreSP:string
 }
 
 export interface alianzasp_create extends alianzasp_read{

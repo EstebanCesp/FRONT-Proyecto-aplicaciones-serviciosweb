@@ -2,13 +2,13 @@ import { docenteResponse } from "./docente"
 
 export interface evaluacion_docenteResponse{
     id:number
-    docente:docenteResponse
+    docente:any
     calificacion:number
     semestre:string
 }
 
 export interface evaluacion_docente_read{
-    nombresp:string
+    nombreSP:string
 }
 
 export interface evaluacion_docente_create extends evaluacion_docente_read{

@@ -1,17 +1,18 @@
+import { DeprecatedGuard } from "@angular/router"
 import { docenteResponse } from "./docente"
 import { programa } from "./programa"
 
 export interface docente_departamentoResponse{
-    docente:docenteResponse
-    departamento:programa
     dedicacion:string
     modalidad:string
     fecha_ingreso:Date
     fecha_salida:Date
+    docente:any
+    departamento:any
 }
 
 export interface docente_departamento_read{
-    nombresp:string
+    nombreSP:string
 }
 
 export interface docente_departamento_create extends docente_departamento_read{
