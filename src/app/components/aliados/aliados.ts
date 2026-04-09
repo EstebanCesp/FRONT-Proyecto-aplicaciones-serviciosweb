@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Aliado, aliadoUpdate} from '../../models/aliado';
 import { aliadoService } from '../../services/aliado.service';
@@ -10,7 +10,7 @@ import { aliadoService } from '../../services/aliado.service';
   templateUrl: './aliados.html',
   styleUrl: './aliados.css',
 })
-export class Aliados {
+export class Aliados implements OnInit {
   public listaAliados: Aliado[] = [];
   modoFormulario: 'crear' | 'editar' | null = null;
 
@@ -22,13 +22,16 @@ export class Aliados {
     telefono: '',
     ciudad : ''
   };
+  
   constructor(
     private aliadoService: aliadoService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.ObtenerAliados();
   }
+
 
   abrirCrear(): void {
     this.modoFormulario = 'crear';
@@ -73,10 +76,12 @@ export class Aliados {
     this.aliadoService.getAliados().subscribe({
       next: (response: any) => {
         this.listaAliados = (response?.datos ?? (Array.isArray(response) ? response : [])) as Aliado[];
+        this.cdr.detectChanges(); // Forzamos la actualización de la vista
       },
       error: (err) => {
         console.error('Error al obtener datos', err);
         this.listaAliados = [];
+        this.cdr.detectChanges();
       },
     });
   }
@@ -84,14 +89,16 @@ export class Aliados {
 
   cancelar(): void {
     this.modoFormulario = null;
+    this.ObtenerAliados();
   }
 
   eliminarAliado(aliado:number){
     this.aliadoService.deleteAliado(aliado).subscribe({
       next: (response :any) => {
-        console.log(response)
+        console.log(response);
+        this.ObtenerAliados();
       }
-    })
+    });
   }
 
 }
