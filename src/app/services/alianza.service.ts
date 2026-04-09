@@ -12,7 +12,7 @@ export class AlianzaService {
 
   getAlianzas() {
     const data:alianzasp_read = {
-      nombreSP: 'sp_leer_alianzas'
+      nombreSP: 'sp_leer_alianza'
     }
     return this.apiService.post(this.endpoint, data)
   }
