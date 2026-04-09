@@ -21,14 +21,6 @@ export interface alianzasp_create extends alianzasp_read{
     docente:number
 }
 
-export interface alianzasp_update extends alianzasp_read{
-    aliado:number | null
-    departamento:number | null
-    fecha_inicio:Date | null
-    fecha_fin:Date | null
-    docente:number | null
-}
-
 export interface alianzasp_delete extends alianzasp_read{
     aliado:number
     departamento:number

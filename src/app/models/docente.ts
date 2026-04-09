@@ -42,25 +42,6 @@ export interface docente_Create extends docente_Read{
     linea_investigacion_principal: number
 }
 
-export interface docente_Update extends docente_Read{
-    cedula: number | null
-    nombres: string | null
-    apellidos: string | null
-    genero: string | null
-    cargo: string | null
-    fecha_nacimiento: Date | null
-    correo: string | null
-    telefono: string | null
-    url_cvlac: string | null
-    fecha_actualizacion: Date | null
-    escalafon: string | null
-    perfil: string | null
-    cat_minciencia: string | null
-    conv_minciencia: string | null
-    nacionalidaad:string | null
-    linea_investigacion: number | null
-}
-
 export interface docente_Delete extends docente_Read{
     cedula: number
 }

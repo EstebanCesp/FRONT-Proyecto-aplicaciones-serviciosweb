@@ -12,23 +12,35 @@ export class AlianzaService {
 
   getAlianzas() {
     const data:alianzasp_read = {
-      nombresp: 'sp_leer_alianzas'
+      nombreSP: 'sp_leer_alianzas'
     }
     return this.apiService.post(this.endpoint, data)
   }
 
   crearAlianza(data:alianzasp_create){
-    data.nombresp = 'sp_crear_alianza'
+    data.nombreSP = 'sp_crear_alianza'
     return this.apiService.post(this.endpoint, data)
   }
 
   actualizarAlianza(data:alianzasp_update){
-    data.nombresp = 'sp_actualizar_alianza'
+    data.nombreSP = 'sp_actualizar_alianza'
     return this.apiService.post(this.endpoint, data)
   }
 
   eliminarAlianza(data:alianzasp_delete){
-    data.nombresp = 'sp_eliminar_alianza'
+    data.nombreSP = 'sp_eliminar_alianza'
     return this.apiService.post(this.endpoint, data)
+  }
+
+  getAliados() {
+    return this.apiService.get('/aliado')
+  }
+
+  getDepartamentos() {
+    return this.apiService.get('/programa')
+  }
+
+  getDocentes() {
+    return this.apiService.get('/docente')
   }
 }

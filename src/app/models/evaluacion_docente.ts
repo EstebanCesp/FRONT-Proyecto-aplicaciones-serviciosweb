@@ -18,13 +18,6 @@ export interface evaluacion_docente_create extends evaluacion_docente_read{
     semestre:string
 }
 
-export interface evaluacion_docente_update extends evaluacion_docente_read{
-    id:number | null
-    docente:number | null
-    calificacion:number | null
-    semestre:string | null
-}
-
 export interface evaluacion_docente_delete extends evaluacion_docente_read{
     id:number
 }

@@ -12,23 +12,27 @@ export class EvaluacionDocenteService {
 
   getEvaluacionDocentes() {
     const data:evaluacion_docente_read = {
-      nombresp: 'sp_leer_evaluacion_docente'
+      nombreSP: 'sp_leer_evaluacion_docente'
     }
     return this.apiService.post(this.endpoint, data)
   }
 
   crearEvaluacionDocente(data:evaluacion_docente_create){
-    data.nombresp = 'sp_crear_evaluacion_docente'
+    data.nombreSP = 'sp_crear_evaluacion_docente'
     return this.apiService.post(this.endpoint, data)
   }
 
   actualizarEvaluacionDocente(data:evaluacion_docente_update){
-    data.nombresp = 'sp_actualizar_evaluacion_docente'
+    data.nombreSP = 'sp_actualizar_evaluacion_docente'
     return this.apiService.post(this.endpoint, data)
   }
 
   eliminarEvaluacionDocente(data:evaluacion_docente_delete){
-    data.nombresp = 'sp_eliminar_evaluacion_docente'
+    data.nombreSP = 'sp_eliminar_evaluacion_docente'
     return this.apiService.post(this.endpoint, data)
+  }
+
+  getDocentes() {
+    return this.apiService.get('/docente')
   }
 }

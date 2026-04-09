@@ -14,23 +14,27 @@ export class DocentesService {
 
   getDocentes() {
     const data:docente_Read = {
-      nombresp: 'sp_leer_docentes'
+      nombreSP: 'sp_leer_docentes'
     }
     return this.apiService.post(this.endpoint, data)
   }
 
+  getLineasInvestigacion() {
+    return this.apiService.get('/linea_investigacion');
+  }
+
   crearDocente(data:docente_Create){
-    data.nombresp = 'sp_crear_docente'
+    data.nombreSP = 'sp_crear_docente'
     return this.apiService.post(this.endpoint, data)
   }
 
   actualizarDocente(data:docente_Update){
-    data.nombresp = 'sp_actualizar_docente'
+    data.nombreSP = 'sp_actualizar_docente'
     return this.apiService.post(this.endpoint, data)
   }
 
   eliminarDocente(data:docente_Delete){
-    data.nombresp = 'sp_eliminar_docente'
+    data.nombreSP = 'sp_eliminar_docente'
     return this.apiService.post(this.endpoint, data)
   }
 }
