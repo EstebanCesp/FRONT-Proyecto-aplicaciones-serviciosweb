@@ -20,19 +20,7 @@
           Inicio
         </a>
       </li>
-
-      <li>
-        <a
-          routerLink="/apoyo_profesoral"
-          routerLinkActive="sidebar__link--active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="sidebar__link"
-          (click)="close()"
-        >
-          Apoyo profesoral
-        </a>
-      </li>
-
+      <li class="sidebar-divider">-- Tablas sin clave foranea --</li>
       <li>
         <a
           routerLink="/aliados"
@@ -43,6 +31,18 @@
         >
         Aliados
          </a>
+      </li>
+      <li class="sidebar-divider">-- Tablas con clave foranea --</li>
+      <li>
+        <a
+          routerLink="/apoyo_profesoral"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Apoyo profesoral
+        </a>
       </li>
       <li>
         <a
@@ -65,16 +65,28 @@
         >
         Docente
          </a>
-         <li>
-          <a
-            routerLink="/docente_departamento"
-            routerLinkActive="sidebar__link--active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="sidebar__link"
-            (click)="close()"
-          >
+      </li>
+      <li>
+        <a
+          routerLink="/docente_departamento"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
           Docente Departamento
-           </a>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/alianza"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Alianzas
+        </a>
       </li>
     </ul>
   </nav>

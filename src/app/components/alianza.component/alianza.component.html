@@ -1,0 +1,79 @@
+<div class="contenedor_general">
+    <header class="cabecera_contenido">
+     <div class="cabecera_texto">
+       <h1 class="titulo_listado">Listado de Alianzas</h1>
+       <p class="descripcion_listado">Administre las alianzas y sus datos académicos.</p>
+     </div>
+     <button type="button" class="btn_registrar" (click)="abrirCrear()" >Registrar Alianza</button>
+    </header>
+    
+    <div class="contenedor_tabla">
+     <table class="tabla">
+       <thead class="tabla_cabecera">
+         <tr>
+           <th>ALIADO</th>
+           <th>DEPARTAMENTO</th>
+           <th>DOCENTE</th>
+           <th>CEDULA DOCENTE</th>
+           <th>CIUDAD PROGRAMA</th>
+           <th>FECHA INICIO</th>
+           <th>FECHA FIN</th>
+           <th>ACCIONES</th>
+         </tr>   
+       </thead>
+       <tbody class="cuerpo_tabla">
+         <tr *ngFor="let alianza of listaAlianzas" class="linea_dato">
+           <td>{{ alianza.aliado.razon_social}}</td>
+           <td>{{ alianza.departamento.nombre}}</td>
+           <td>{{ alianza.docente.nombres}}</td>
+           <td>{{ alianza.docente.cedula}}</td>  
+           <td>{{ alianza.departamento.ciudad}}</td>
+           <td>{{ alianza.fecha_inicio }}</td>
+           <td>{{ alianza.fecha_fin }}</td>
+           <td class="celda_acciones">
+             <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(alianza)" >Editar</button>
+             <button type="button" class="btn_accion btn_eliminar" (click)="eliminar(alianza)")>Eliminar</button>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+    </div>
+    <div class="form-card" *ngIf="modoFormulario !== null">
+     <h2>{{ modoFormulario === 'crear' ? 'Nueva alianza' : 'Editar alianza' }}</h2>
+     <div class="form-grid">
+       <div class="form-group">
+         <label>Departamento</label>
+         <select  [disabled]="modoFormulario === 'editar'" [(ngModel)]="Formulario.departamento">
+           <option *ngFor="let departamento of listaDepartamentos" [value]="departamento.id">{{departamento.nombre}}</option>
+         </select>
+       </div>
+       <div class="form-group">
+         <label>Docente</label>
+         <select [(ngModel)]="Formulario.docente">
+          <option *ngFor="let docente of listaDocentes" [value]="docente.cedula">{{docente.nombres}} {{docente.apellidos}} CC: {{docente.cedula}}</option>
+      </select>
+       </div>
+       <div class="form-group">
+           <label>Aliado</label>
+           <select [(ngModel)]="Formulario.aliado" [disabled]="modoFormulario === 'editar'">
+               <option *ngFor="let aliado of listaAliados" [value]="aliado.nit">{{aliado.razon_social}} NIT: {{aliado.nit}}</option>
+           </select>
+       </div>
+       <div class="form-group">
+           <label>Fecha de Inicio</label>
+           <input type="date" [(ngModel)]="Formulario.fecha_inicio" />
+         </div>
+       <div class="form-group">
+         <label>Fecha de Fin</label>
+         <input type="date" [(ngModel)]="Formulario.fecha_fin" />
+       </div>
+     </div>
+     <div class="form-actions">
+       <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+       <button class="btn-secondary" (click)="guardar()">Guardar</button>
+     </div>
+    </div>
+  </div>
+  
+      
+      
