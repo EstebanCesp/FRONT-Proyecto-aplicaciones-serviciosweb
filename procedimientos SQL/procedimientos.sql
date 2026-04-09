@@ -32,7 +32,7 @@ BEGIN
 END;
 
 --crear docente
-CREATE PROCEDURE dbo.sp_crear_docente(
+ALTER PROCEDURE dbo.sp_crear_docente(
     @cedula INT,
     @nombres VARCHAR(60),
     @apellidos VARCHAR(60),
@@ -47,8 +47,8 @@ CREATE PROCEDURE dbo.sp_crear_docente(
     @perfil VARCHAR(20),
     @cat_minciencia VARCHAR(20),
     @conv_minciencia VARCHAR(20),
-    @nacionalidad VARCHAR(20),
-    @linea_investigacion_principal INT,
+    @nacionalidaad VARCHAR(20),
+    @linea_investigacion INT,
     @p_resultado NVARCHAR(MAX) OUTPUT
 )
 AS
@@ -87,8 +87,8 @@ BEGIN
         @perfil,
         @cat_minciencia,
         @conv_minciencia,
-        @nacionalidad,
-        @linea_investigacion_principal
+        @nacionalidaad,
+        @linea_investigacion
     );
 
     SET @p_resultado = (
@@ -103,7 +103,7 @@ BEGIN
 END
 
 --actualizar docente
-CREATE PROCEDURE dbo.sp_actualizar_docente(
+ALTER PROCEDURE dbo.sp_actualizar_docente(
     @cedula INT,
     @nombres VARCHAR(60),
     @apellidos VARCHAR(60),
@@ -118,7 +118,7 @@ CREATE PROCEDURE dbo.sp_actualizar_docente(
     @perfil VARCHAR(20),
     @cat_minciencia VARCHAR(20),
     @conv_minciencia VARCHAR(20),
-    @nacionalidad VARCHAR(20),
+    @nacionalidaad VARCHAR(20),
     @linea_investigacion INT,
     @p_resultado NVARCHAR(MAX) OUTPUT
 )
@@ -141,7 +141,7 @@ BEGIN
         perfil = @perfil,
         cat_minciencia = @cat_minciencia,
         conv_minciencia = @conv_minciencia,
-        nacionalidaad = @nacionalidad,
+        nacionalidaad = @nacionalidaad,
         linea_investigacion_principal = @linea_investigacion
     WHERE cedula = @cedula;
 
@@ -247,7 +247,6 @@ CREATE PROCEDURE dbo.sp_eliminar_alianza(
 AS
 BEGIN
     SET NOCOUNT ON;
-
     DELETE FROM dbo.alianza WHERE aliado = @aliado AND departamento = @departamento;
 END
 
@@ -255,8 +254,7 @@ END
 ALTER PROCEDURE dbo.sp_leer_docente_departamento
 AS
 BEGIN
-    SET NOCOUNT ON;
-
+    SET NOCOUNT ON
         SELECT 
             (SELECT doc.nombres, doc.cedula, doc.apellidos FROM dbo.docente doc WHERE doc.cedula = dd.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS docente,
             (SELECT dep.nombre, dep.ciudad, dep.id FROM dbo.programa dep WHERE dep.id = dd.departamento FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS departamento,
@@ -346,7 +344,7 @@ BEGIN
 END
 
 --leer evaluacion_docente
-CREATE PROCEDURE dbo.sp_leer_evaluacion_docente
+ALTER PROCEDURE dbo.sp_leer_evaluacion_docente
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -355,7 +353,7 @@ BEGIN
             ed.calificacion,
             ed.semestre
         FROM dbo.evaluacion_docente ed
-    );
+   
 END
 
 --crear evaluacion_docente
