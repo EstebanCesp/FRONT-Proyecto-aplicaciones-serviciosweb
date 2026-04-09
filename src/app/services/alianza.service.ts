@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { alianzasp_create, alianzasp_delete, alianzasp_read, alianzasp_update } from '../models/alianza';
+import { alianzasp_create, alianzasp_delete, alianzasp_read} from '../models/alianza';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class AlianzaService {
     return this.apiService.post(this.endpoint, data)
   }
 
-  actualizarAlianza(data:alianzasp_update){
+  actualizarAlianza(data:alianzasp_create){
     data.nombreSP = 'sp_actualizar_alianza'
     return this.apiService.post(this.endpoint, data)
   }

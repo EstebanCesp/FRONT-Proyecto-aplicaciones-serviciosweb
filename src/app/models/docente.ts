@@ -6,7 +6,7 @@ export interface docenteResponse{
     apellidos: string
     genero: string
     cargo: string
-    fecha_nacimient: Date
+    fecha_nacimiento: Date
     correo: string
     telefono: string
     url_cvlac: string
@@ -29,7 +29,7 @@ export interface docente_Create extends docente_Read{
     apellidos: string
     genero: string
     cargo: string
-    fecha_nacimient: Date
+    fecha_nacimiento: Date
     correo: string
     telefono: string
     url_cvlac: string
@@ -39,7 +39,7 @@ export interface docente_Create extends docente_Read{
     cat_minciencia: string
     conv_minciencia: string
     nacionalidaad:string
-    linea_investigacion_principal: number
+    linea_investigacion: number
 }
 
 export interface docente_Delete extends docente_Read{

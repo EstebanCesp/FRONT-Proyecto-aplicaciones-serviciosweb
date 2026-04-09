@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { evaluacion_docente_create, evaluacion_docente_delete, evaluacion_docente_read, evaluacion_docente_update } from '../models/evaluacion_docente';
+import { evaluacion_docente_create, evaluacion_docente_delete, evaluacion_docente_read } from '../models/evaluacion_docente';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class EvaluacionDocenteService {
     return this.apiService.post(this.endpoint, data)
   }
 
-  actualizarEvaluacionDocente(data:evaluacion_docente_update){
+  actualizarEvaluacionDocente(data:evaluacion_docente_create){
     data.nombreSP = 'sp_actualizar_evaluacion_docente'
     return this.apiService.post(this.endpoint, data)
   }
