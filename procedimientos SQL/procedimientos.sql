@@ -1,12 +1,10 @@
 use Conocimiento_Universitario
 --leer docentes
-CREATE PROCEDURE dbo.sp_leer_docentes(
-    @p_resultado NVARCHAR(MAX) OUTPUT
-)
+ALTER PROCEDURE dbo.sp_leer_docentes
 AS
 BEGIN
     SET NOCOUNT ON;
-    SET @p_resultado = (
+   (
         SELECT 
             d.cedula,
             d.nombres,
@@ -30,7 +28,6 @@ BEGIN
                 FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
             ) AS linea_investigacion
         FROM dbo.docente d
-        FOR JSON PATH
     );
 END;
 
@@ -171,13 +168,10 @@ BEGIN
 END
 
 --leer alianza
-CREATE PROCEDURE dbo.sp_leer_alianza(
-    @p_resultado NVARCHAR(MAX) OUTPUT
-)
+ALTER PROCEDURE dbo.sp_leer_alianza
 AS
 BEGIN
     SET NOCOUNT ON;
-    SET @p_resultado = (
         SELECT 
             (SELECT a2.* FROM dbo.aliado a2 WHERE a2.nit = a.aliado FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS aliado,
             (SELECT d2.* FROM dbo.programa d2 WHERE d2.id = a.departamento FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS departamento,
@@ -185,8 +179,6 @@ BEGIN
             a.fecha_fin,
             (SELECT doc.* FROM dbo.docente doc WHERE doc.cedula = a.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS docente
         FROM dbo.alianza a
-        FOR JSON PATH
-    );
 END
 
 --crear alianza
@@ -260,24 +252,21 @@ BEGIN
 END
 
 --leer docente_departamento
-CREATE PROCEDURE dbo.sp_leer_docente_departamento(
-    @p_resultado NVARCHAR(MAX) OUTPUT
-)
+ALTER PROCEDURE dbo.sp_leer_docente_departamento
 AS
 BEGIN
     SET NOCOUNT ON;
-    SET @p_resultado = (
+
         SELECT 
-            (SELECT doc.* FROM dbo.docente doc WHERE doc.cedula = dd.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS docente,
-            (SELECT dep.* FROM dbo.programa dep WHERE dep.id = dd.departamento FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS departamento,
+            (SELECT doc.nombres, doc.cedula, doc.apellidos FROM dbo.docente doc WHERE doc.cedula = dd.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS docente,
+            (SELECT dep.nombre, dep.ciudad, dep.id FROM dbo.programa dep WHERE dep.id = dd.departamento FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS departamento,
             dd.dedicacion,
             dd.modalidad,
             dd.fecha_ingreso,
             dd.fecha_salida
         FROM dbo.docente_departamento dd
-        FOR JSON PATH
-    );
 END
+
 
 --crear docente_departamento
 CREATE PROCEDURE dbo.sp_crear_docente_departamento(
@@ -357,19 +346,15 @@ BEGIN
 END
 
 --leer evaluacion_docente
-CREATE PROCEDURE dbo.sp_leer_evaluacion_docente(
-    @p_resultado NVARCHAR(MAX) OUTPUT
-)
+CREATE PROCEDURE dbo.sp_leer_evaluacion_docente
 AS
 BEGIN
     SET NOCOUNT ON;
-    SET @p_resultado = (
         SELECT 
             (SELECT doc.* FROM dbo.docente doc WHERE doc.cedula = ed.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS docente,
             ed.calificacion,
             ed.semestre
         FROM dbo.evaluacion_docente ed
-        FOR JSON PATH
     );
 END
 
