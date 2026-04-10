@@ -110,5 +110,27 @@
           Estudios Área Conocimiento
         </a>
       </li>
+      <li>
+        <a
+          routerLink="/reconocimiento"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Reconocimientos
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/experiencia"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+         >
+          Experiencia
+        </a>
+      </li>   
     </ul>
   </nav>
