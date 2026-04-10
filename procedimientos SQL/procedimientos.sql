@@ -1,6 +1,6 @@
 use Conocimiento_Universitario
 --leer docentes
-ALTER PROCEDURE dbo.sp_leer_docentes
+CREATE PROCEDURE dbo.sp_leer_docentes
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -32,7 +32,7 @@ BEGIN
 END;
 
 --crear docente
-ALTER PROCEDURE dbo.sp_crear_docente(
+CREATE PROCEDURE dbo.sp_crear_docente(
     @cedula INT,
     @nombres VARCHAR(60),
     @apellidos VARCHAR(60),
@@ -103,7 +103,7 @@ BEGIN
 END
 
 --actualizar docente
-ALTER PROCEDURE dbo.sp_actualizar_docente(
+CREATE PROCEDURE dbo.sp_actualizar_docente(
     @cedula INT,
     @nombres VARCHAR(60),
     @apellidos VARCHAR(60),
@@ -168,7 +168,7 @@ BEGIN
 END
 
 --leer alianza
-ALTER PROCEDURE dbo.sp_leer_alianza
+CREATE PROCEDURE dbo.sp_leer_alianza
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -251,7 +251,7 @@ BEGIN
 END
 
 --leer docente_departamento
-ALTER PROCEDURE dbo.sp_leer_docente_departamento
+CREATE PROCEDURE dbo.sp_leer_docente_departamento
 AS
 BEGIN
     SET NOCOUNT ON
@@ -344,7 +344,7 @@ BEGIN
 END
 
 --leer evaluacion_docente
-ALTER PROCEDURE dbo.sp_leer_evaluacion_docente
+CREATE PROCEDURE dbo.sp_leer_evaluacion_docente
 AS
 BEGIN
     SET NOCOUNT ON;

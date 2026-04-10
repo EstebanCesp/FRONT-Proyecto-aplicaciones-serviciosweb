@@ -1,6 +1,6 @@
 USE SG_Conocimiento
 --Leer apoyo_profesoral
-ALTER PROCEDURE dbo.sp_leer_apoyo_profesoral
+CREATE PROCEDURE dbo.sp_leer_apoyo_profesoral
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -51,7 +51,7 @@ BEGIN
 END
 
 --Eliminar apoyo_profesoral
-ALTER PROCEDURE dbo.sp_eliminar_apoyo_profesoral(
+CREATE PROCEDURE dbo.sp_eliminar_apoyo_profesoral(
 @estudios INT
 )
 AS
@@ -62,7 +62,7 @@ BEGIN
 END
 
 --Leer estudios_realizados
-ALTER PROCEDURE dbo.sp_leer_estudios_realizados
+CREATE PROCEDURE dbo.sp_leer_estudios_realizados
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -139,7 +139,7 @@ BEGIN
 END
 
 --Eliminar estudios_realizados
-ALTER PROCEDURE dbo.sp_eliminar_estudios_realizados(
+CREATE PROCEDURE dbo.sp_eliminar_estudios_realizados(
 @id INT,
 @p_respuesta NVARCHAR(MAX) OUTPUT
 )
@@ -154,7 +154,7 @@ BEGIN
 END
 
 --Leer estudio_ac
-ALTER PROCEDURE dbo.sp_leer_estudio_ac
+CREATE PROCEDURE dbo.sp_leer_estudio_ac
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -168,7 +168,7 @@ END
 SELECT * FROM dbo.estudio_ac est_ac
 
 --Crear estudio_ac
-ALTER PROCEDURE dbo.sp_crear_estudio_ac(
+CREATE PROCEDURE dbo.sp_crear_estudio_ac(
 @estudios INT,
 @area_conocimiento INT,
 @p_respuesta NVARCHAR(MAX) OUTPUT
@@ -182,7 +182,7 @@ BEGIN
 END
 
 --Actualizar estudio_ac
-ALTER PROCEDURE dbo.sp_actualizar_estudio_ac(
+CREATE PROCEDURE dbo.sp_actualizar_estudio_ac(
 @estudios INT,
 @area_conocimiento INT,
 @p_respuesta NVARCHAR(MAX) OUTPUT
@@ -198,7 +198,7 @@ BEGIN
 END
 
 --Eliminar estudio_ac
-ALTER PROCEDURE dbo.sp_eliminar_estudio_ac(
+CREATE PROCEDURE dbo.sp_eliminar_estudio_ac(
 @estudios INT,
 @area_conocimiento INT,
 @p_respuesta NVARCHAR(MAX) OUTPUT
