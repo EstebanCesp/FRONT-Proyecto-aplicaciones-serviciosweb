@@ -19,16 +19,20 @@ export class ApoyoProfesoralService {
 
   crearApoyoProfesoral(data:apoyo_profesoralCreate){
     data.nombreSP = 'sp_crear_apoyo_profesoral'
+    console.log(data)
     return this.ApiService.post(this.endpoint, data)
   }
 
   actualizarApoyoProfesoral(data:apoyo_profesoralCreate){
     data.nombreSP = 'sp_actualizar_apoyo_profesoral'
+    console.log(data) 
     return this.ApiService.post(this.endpoint, data)
   }
 
   eliminarApoyoProfesoral(data:apoyo_profesoralDelete){
     data.nombreSP = 'sp_eliminar_apoyo_profesoral'
+    console.log(data)
+
     return this.ApiService.post(this.endpoint, data)
   }
 
