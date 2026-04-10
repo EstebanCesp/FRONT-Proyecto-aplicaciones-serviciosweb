@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BecaComponent } from './beca.components';
+import { EstudioAc } from './estudio-ac';
 
-describe('Beca', () => {
-  let component: BecaComponent;
-  let fixture: ComponentFixture<BecaComponent>;
+describe('EstudioAc', () => {
+  let component: EstudioAc;
+  let fixture: ComponentFixture<EstudioAc>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BecaComponent],
+      imports: [EstudioAc],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BecaComponent);
+    fixture = TestBed.createComponent(EstudioAc);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
