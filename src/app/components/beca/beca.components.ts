@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { BecaService } from '../../services/beca.service';
-import { Beca } from '../../models/Beca';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BecaService } from '../../services/beca.service';
+import { becasp_create, becasp_delete } from '../../models/Beca';
 
 @Component({
   selector: 'app-beca',
-  standalone: true,                        // ← agrega esto
-  imports: [FormsModule, CommonModule],    // ← agrega esto
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './beca.component.html',
   styleUrls: ['./beca.component.css']
 })
 export class BecaComponent implements OnInit {
 
-  becas: Beca[] = [];
-  becaSeleccionada: Beca | null = null;
+  becas: any[] = [];
   modoFormulario: 'crear' | 'editar' | null = null;
 
-  // Modelo vacío para el formulario
-  formulario: Beca = {
+  formulario: becasp_create = {
+    nombreSP: '',
     estudios: 0,
     tipo: '',
     institucion: '',
@@ -33,42 +32,50 @@ export class BecaComponent implements OnInit {
   }
 
   cargarBecas(): void {
-  this.becaService.getBecas().subscribe((data: any) => {
-    this.becas = data;
-  });
-}
+    this.becaService.getBecas().subscribe((data: any) => {
+      this.becas = data;
+    });
+  }
 
   abrirCrear(): void {
     this.modoFormulario = 'crear';
-    this.formulario = { estudios: 0, tipo: '', institucion: '', fecha_inicio: '', fecha_fin: null };
+    this.formulario = { nombreSP: '', estudios: 0, tipo: '', institucion: '', fecha_inicio: '', fecha_fin: null };
   }
 
-  abrirEditar(beca: Beca): void {
+  abrirEditar(beca: any): void {
     this.modoFormulario = 'editar';
-    this.formulario = { ...beca };
+    this.formulario = {
+      nombreSP: '',
+      estudios: beca.estudios?.id ?? beca.estudios,
+      tipo: beca.tipo,
+      institucion: beca.institucion,
+      fecha_inicio: beca.fecha_inicio,
+      fecha_fin: beca.fecha_fin
+    };
   }
 
   guardar(): void {
-  if (this.modoFormulario === 'crear') {
-    this.becaService.postBeca(this.formulario).subscribe(() => {
-      this.cargarBecas();
-      this.modoFormulario = null;
-    });
-  } else if (this.modoFormulario === 'editar') {
-    this.becaService.putBeca(this.formulario, this.formulario.estudios).subscribe(() => {
-      this.cargarBecas();
-      this.modoFormulario = null;
-    });
+    if (this.modoFormulario === 'crear') {
+      this.becaService.crearBeca({ ...this.formulario }).subscribe(() => {
+        this.cargarBecas();
+        this.modoFormulario = null;
+      });
+    } else {
+      this.becaService.actualizarBeca({ ...this.formulario }).subscribe(() => {
+        this.cargarBecas();
+        this.modoFormulario = null;
+      });
+    }
   }
-}
 
   eliminar(estudios: number): void {
-  if (confirm('¿Seguro que quieres eliminar esta beca?')) {
-    this.becaService.deleteBeca(estudios).subscribe(() => {
-      this.cargarBecas();
-    });
+    if (confirm('¿Seguro que deseas eliminar esta beca?')) {
+      const data: becasp_delete = { nombreSP: 'sp_eliminar_beca', estudios };
+      this.becaService.eliminarBeca(data).subscribe(() => {
+        this.cargarBecas();
+      });
+    }
   }
-}
 
   cancelar(): void {
     this.modoFormulario = null;
