@@ -1,20 +1,23 @@
-export interface apoyo_profesoral{
-    estudios : number
-    con_apoyo : number
+import { estudios_realizadosResponse } from "./estudios_realizados"
+
+export interface apoyo_profesoralResponse{
+    estudios : any
+    con_apoyo : boolean
     institucion : string
     tipo : string
 }
 
-export interface apoyo_profesoralCreate{
-    estudios : number
-    con_apoyo : number
+export interface apoyo_profesoralRead{
+    nombreSP: string
+}
+
+export interface apoyo_profesoralCreate extends apoyo_profesoralRead{
+    estudios : any
+    con_apoyo : boolean
     institucion : string
     tipo : string
 }
 
-export interface apoyo_profesoralUpdate{
-    estudios : number|null
-    con_apoyo : number|null
-    institucion : string|null
-    tipo : string|null
+export interface apoyo_profesoralDelete extends apoyo_profesoralRead{
+    estudios : any
 }

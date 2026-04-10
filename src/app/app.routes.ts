@@ -5,17 +5,52 @@ import { BecaComponent } from './components/beca/beca.components';
 import { DocenteDepartamentoComponent } from './components/docente-departamento.component/docente-departamento.component';
 import { AlianzaComponent } from './components/alianza.component/alianza.component';
 import { DocenteComponent } from './components/docente.component/docente.component';
+import { EstudiosRealizados } from './components/estudios-realizados/estudios-realizados';
+import { EstudioAc } from './components/estudio-ac/estudio-ac';
 import { ReconocimientoComponent } from './components/Reconocimiento/Reconocimiento.components';
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
 
 export const routes: Routes = [
-    { path: 'beca', component: BecaComponent },
-    { path: 'docente', component: DocenteComponent },
-    { path: 'apoyo_profesoral', component: ApoyoProfesoral },
-    { path: 'aliados', component: Aliados },
-    { path: 'docente_departamento', component: DocenteDepartamentoComponent },
-    { path: 'alianza', component: AlianzaComponent },
-    { path: 'reconocimiento', component: ReconocimientoComponent },
-    { path: 'experiencia', component: ExperienciaComponent },
-    { path: '**', redirectTo: '', pathMatch: 'full' },
-];
+    {
+        path: 'beca',
+        component: BecaComponent
+    },
+    {
+        path: 'docente',
+        component: DocenteComponent
+    },
+    {
+        path: 'apoyo_profesoral',
+        component: ApoyoProfesoral
+    },
+    {
+        path: 'aliados',
+        component: Aliados,
+    },
+    {
+        path: 'docente_departamento',
+        component: DocenteDepartamentoComponent,
+    },
+    {
+        path: 'alianza',
+        component: AlianzaComponent,
+    },
+    {
+        path: 'estudios_realizados',
+        component: EstudiosRealizados,
+    },
+    {
+        path: 'estudio_ac',
+        component: EstudioAc,
+    },
+    { 
+      path: 'reconocimiento', 
+      component: ReconocimientoComponent },
+    { 
+      path: 'experiencia', 
+      component: ExperienciaComponent },
+    {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full',
+    },
