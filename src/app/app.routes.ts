@@ -6,6 +6,7 @@ import { BecaComponent } from './components/beca/beca.components';
 import { DocenteDepartamentoComponent } from './components/docente-departamento.component/docente-departamento.component';
 import { AlianzaComponent } from './components/alianza.component/alianza.component';
 import { DocenteComponent } from './components/docente.component/docente.component';
+import { EstudiosRealizados } from './components/estudios-realizados/estudios-realizados';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,10 @@ export const routes: Routes = [
     {
         path: 'alianza',
         component: AlianzaComponent,
+    },
+    {
+        path: 'estudios_realizados',
+        component: EstudiosRealizados,
     },
     {
         path: '**',

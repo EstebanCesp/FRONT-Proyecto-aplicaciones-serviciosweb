@@ -88,5 +88,16 @@
           Alianzas
         </a>
       </li>
+      <li>
+        <a
+          routerLink="/estudios_realizados"
+          routerLinkActive="sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="sidebar__link"
+          (click)="close()"
+        >
+          Estudios Realizados
+        </a>
+      </li>
     </ul>
   </nav>
