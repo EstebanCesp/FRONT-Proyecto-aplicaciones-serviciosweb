@@ -7,6 +7,7 @@ import { DocenteDepartamentoComponent } from './components/docente-departamento.
 import { AlianzaComponent } from './components/alianza.component/alianza.component';
 import { DocenteComponent } from './components/docente.component/docente.component';
 import { EstudiosRealizados } from './components/estudios-realizados/estudios-realizados';
+import { EstudioAc } from './components/estudio-ac/estudio-ac';
 
 export const routes: Routes = [
     {
@@ -36,6 +37,10 @@ export const routes: Routes = [
     {
         path: 'estudios_realizados',
         component: EstudiosRealizados,
+    },
+    {
+        path: 'estudio_ac',
+        component: EstudioAc,
     },
     {
         path: '**',

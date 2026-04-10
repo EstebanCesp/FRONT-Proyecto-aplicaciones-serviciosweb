@@ -1,5 +1,5 @@
 export interface estudio_acResponse{
-    estudio: any
+    estudios: any
     area_conocimiento: any
 }
 
@@ -8,11 +8,11 @@ export interface estudio_acRead{
 }
 
 export interface estudio_acCreate extends estudio_acRead{
-    estudio: any
+    estudios: any
     area_conocimiento: any
 }
 
 export interface estudio_acDelete extends estudio_acRead{
-    estudio: any
+    estudios: any
     area_conocimiento: any
 }   
