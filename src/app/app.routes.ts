@@ -1,4 +1,7 @@
+
+
 import { Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login';
 import { ApoyoProfesoral } from './components/apoyo-profesoral/apoyo-profesoral';
 import { Aliados } from './components/aliados/aliados';
 import { BecaComponent } from './components/beca/beca.components';
@@ -11,6 +14,10 @@ import { ReconocimientoComponent } from './components/Reconocimiento/Reconocimie
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
 
 export const routes: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent
+  },
     {
         path: 'beca',
         component: BecaComponent
@@ -50,8 +57,12 @@ export const routes: Routes = [
       path: 'experiencia', 
       component: ExperienciaComponent },
     {
-        path: '**',
-        redirectTo: '',
-        pathMatch: 'full',
-    },
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+     },
+     {
+    path: '**',
+    redirectTo: 'login',
+     },
 ];
