@@ -1,0 +1,19 @@
+<div class="inicio-container">
+  <h1>Bienvenido al Sistema</h1>
+  <p>
+    Este es un trabajo para la asignatura <strong>Aplicaciones y Servicios Web 2026-1</strong> en el <strong>ITM</strong>.
+  </p>
+
+  <div class="equipo-section">
+    <h3>Equipo de Desarrollo:</h3>
+    <ul>
+      <li>Carolina Gómez</li>
+      <li>David Arrieta</li>
+      <li>Esteban Céspedes</li>
+      <li>Sebastian Padierna</li>
+    </ul>
+  </div>
+
+  <button *ngIf="islogged" class="logout-btn" (click)="cerrarSesion()">Cerrar Sesión</button>
+  <button *ngIf="!islogged" class="login-btn" (click)="iniciarSesion()">Iniciar Sesión</button>
+</div>

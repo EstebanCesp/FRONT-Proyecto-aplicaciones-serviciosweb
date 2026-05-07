@@ -25,7 +25,7 @@
 // //
 // }
 
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { SidebarComponent } from './shared/sidebar/sidebar';
 import { CommonModule } from '@angular/common';
@@ -41,11 +41,12 @@ export class App {
 
   mostrarLayout = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.mostrarLayout = event.url !== '/login';
+          this.mostrarLayout =  ! event.url.startsWith('/login');
+          cdr.detectChanges()
       });
   }
 }
