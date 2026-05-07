@@ -1,6 +1,6 @@
 use UNI
 -- leer reconocimiento
-ALTER PROCEDURE dbo.sp_leer_reconocimiento
+CREATE PROCEDURE dbo.sp_leer_reconocimiento
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 -- crear reconocimiento
-ALTER PROCEDURE dbo.sp_crear_reconocimiento(
+CREATE PROCEDURE dbo.sp_crear_reconocimiento(
     @docente INT,
     @tipo VARCHAR(50),
     @fecha DATE,
@@ -52,7 +52,7 @@ BEGIN
 END
 GO
 -- actualizar reconocimiento
-ALTER PROCEDURE dbo.sp_actualizar_reconocimiento(
+CREATE PROCEDURE dbo.sp_actualizar_reconocimiento(
     @id INT,
     @docente INT,
     @tipo VARCHAR(50),
@@ -78,7 +78,7 @@ BEGIN
 END
 GO
 -- eliminar reconocimiento
-ALTER PROCEDURE dbo.sp_eliminar_reconocimiento(
+CREATE PROCEDURE dbo.sp_eliminar_reconocimiento(
     @id INT
 )
 AS
@@ -88,7 +88,7 @@ BEGIN
 END
 GO
 -- leer experiencia
-ALTER PROCEDURE dbo.sp_leer_experiencia
+CREATE PROCEDURE dbo.sp_leer_experiencia
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -139,7 +139,7 @@ BEGIN
 END
 GO
 -- actualizar experiencia
-ALTER PROCEDURE dbo.sp_actualizar_experiencia(
+CREATE PROCEDURE dbo.sp_actualizar_experiencia(
     @id INT,
     @docente INT,
     @nombre_cargo VARCHAR(100),
@@ -165,7 +165,7 @@ BEGIN
 END
 GO
 -- eliminar experiencia
-ALTER PROCEDURE dbo.sp_eliminar_experiencia(
+CREATE PROCEDURE dbo.sp_eliminar_experiencia(
     @id INT
 )
 AS
@@ -175,7 +175,7 @@ BEGIN
 END
 GO
 --leer beca
-ALTER PROCEDURE dbo.sp_leer_beca
+CREATE PROCEDURE dbo.sp_leer_beca
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -190,7 +190,7 @@ BEGIN
 END
 GO
 --crear beca
-ALTER PROCEDURE dbo.sp_crear_beca(
+CREATE PROCEDURE dbo.sp_crear_beca(
     @estudios INT,
     @tipo VARCHAR(50),
     @institucion VARCHAR(100),
@@ -222,7 +222,7 @@ BEGIN
 END
 GO
 --actualizar beca
-ALTER PROCEDURE dbo.sp_actualizar_beca(
+CREATE PROCEDURE dbo.sp_actualizar_beca(
     @estudios INT,
     @tipo VARCHAR(50),
     @institucion VARCHAR(100),
@@ -245,7 +245,7 @@ BEGIN
 END
 GO
 --eliminar beca
-ALTER PROCEDURE dbo.sp_eliminar_beca(
+CREATE PROCEDURE dbo.sp_eliminar_beca(
     @estudios INT
 )
 AS
