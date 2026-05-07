@@ -17,6 +17,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { authGuard } from './auth/auth.guard';
 import { ChangePComponent } from './components/changePassword/change-p.component/change-p.component';
 import { ReqEmailComponent } from './components/changePassword/req-email.component/req-email.component';
+import { EvaluacionDocenteComponent } from './components/evaluacion_docente.component/evaluacion_docente.component';
 
 export const routes: Routes = [
     {
@@ -82,6 +83,11 @@ export const routes: Routes = [
       component: ExperienciaComponent,
       canActivate:[authGuard]
 
+    },
+    { 
+      path: 'evaluacion_docente', 
+      component: EvaluacionDocenteComponent,
+      canActivate:[authGuard]
     },
     {
         path:'login/change-p',

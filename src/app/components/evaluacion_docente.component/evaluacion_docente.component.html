@@ -1,0 +1,63 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-info">
+      <h1>Listado de Evaluaciones</h1>
+      <p>Administre las evaluaciones de los docentes por semestre.</p>
+    </div>
+    <button class="btn-primary" (click)="abrirCrear()">
+      <span class="btn-icon">＋</span> Registrar Evaluación
+    </button>
+  </div>
+
+  <div class="table-wrapper" *ngIf="modoFormulario === null">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Docente</th>
+          <th>Calificación</th>
+          <th>Semestre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of evaluaciones">
+          <td>{{ e.id }}</td>
+          <td>{{ e.docente?.nombres }} {{ e.docente?.apellidos }}</td>
+          <td><span class="badge">{{ e.calificacion }}</span></td>
+          <td>{{ e.semestre }}</td>
+          <td class="actions-cell">
+            <button class="btn-edit" (click)="abrirEditar(e)">Editar</button>
+            <button class="btn-delete" (click)="eliminar(e.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-card" *ngIf="modoFormulario !== null">
+    <h2>{{ modoFormulario === 'crear' ? 'Nueva Evaluación' : 'Editar Evaluación' }}</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Docente</label>
+        <select [(ngModel)]="formulario.docente">
+          <option *ngFor="let d of docentes" [value]="d.cedula">
+            {{ d.nombres }} {{ d.apellidos }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Calificación</label>
+        <input type="number" [(ngModel)]="formulario.calificacion" />
+      </div>
+      <div class="form-group">
+        <label>Semestre</label>
+        <input type="text" [(ngModel)]="formulario.semestre" maxlength="20" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+      <button class="btn-primary" (click)="guardar()">Guardar</button>
+    </div>
+  </div>
+</div>
