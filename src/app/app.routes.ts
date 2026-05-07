@@ -7,6 +7,7 @@ import { AlianzaComponent } from './components/alianza.component/alianza.compone
 import { DocenteComponent } from './components/docente.component/docente.component';
 import { ReconocimientoComponent } from './components/Reconocimiento/Reconocimiento.components';
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
+import { EvaluacionDocenteComponent } from './components/evaluacion_docente.component/evaluacion_docente.component';
 
 export const routes: Routes = [
     { path: 'beca', component: BecaComponent },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'alianza', component: AlianzaComponent },
     { path: 'reconocimiento', component: ReconocimientoComponent },
     { path: 'experiencia', component: ExperienciaComponent },
+    { path: 'evaluacion_docente', component: EvaluacionDocenteComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
