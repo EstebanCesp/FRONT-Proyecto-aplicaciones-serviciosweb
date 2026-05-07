@@ -1,4 +1,4 @@
-<div class="app-layout">
+<!-- <div class="app-layout">
     <app-sidebar></app-sidebar>
   
     <main class="app-main">
@@ -6,4 +6,20 @@
         <router-outlet></router-outlet>
       </div>
     </main>
+  </div> -->
+
+  <ng-container *ngIf="mostrarLayout; else sinLayout">
+  <div class="app-layout">
+    <app-sidebar></app-sidebar>
+
+    <main class="app-main">
+      <div class="app-main__inner container">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
   </div>
+</ng-container>
+
+<ng-template #sinLayout>
+  <router-outlet></router-outlet>
+</ng-template>
