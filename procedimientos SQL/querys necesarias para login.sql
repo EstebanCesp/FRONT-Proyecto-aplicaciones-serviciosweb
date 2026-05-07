@@ -40,7 +40,8 @@ insert into ruta (ruta, descripcion) values
 ('/estudios_realizados', ''),
 ('/estudio_ac', ''),
 ('/reconocimiento', ''),
-('/experiencia', '');
+('/experiencia', ''),
+('/evaluacion_docente','');
 
 insert into rol (nombre) values
 ('admin'),
