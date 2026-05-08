@@ -57,4 +57,8 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  resetPassword(email: string, newPassword: string) {
+    return this.apiService.put('/usuario', 'email', email, { contrasena: newPassword },'?camposEncriptar=contrasena');
+  }
+
 }
