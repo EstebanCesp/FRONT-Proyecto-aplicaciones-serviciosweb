@@ -1,4 +1,16 @@
 
+
+
+export interface EstudioRealizadoResponse {
+  id: number;
+  docente: any;
+  titulo: string;
+  universidad: string;
+  tipo: string;
+  fecha: string;
+  beca: any; // detalle anidado que puede venir null
+}
+
 export interface BecaResponse {
   estudios: any;
   tipo: string;

@@ -1,78 +1,145 @@
 <div class="page-container">
 
-  <!-- Header -->
-  <div class="page-header">
-    <div class="header-info">
-      <h1>Listado de Becas</h1>
-      <p>Administre las becas y sus instituciones asignadas.</p>
-    </div>
-    <button class="btn-primary" (click)="abrirCrear()">
-      <span class="btn-icon">＋</span> Registrar Beca
-    </button>
-  </div>
-
-  <!-- Tabla -->
-  <div class="table-wrapper" *ngIf="modoFormulario === null">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>ID Estudios</th>
-          <th>Tipo</th>
-          <th>Institución</th>
-          <th>Fecha Inicio</th>
-          <th>Fecha Fin</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let beca of becas">
-          <td>{{ beca.estudios }}</td>
-          <td>
-            <span class="badge">{{ beca.tipo }}</span>
-          </td>
-          <td>{{ beca.institucion }}</td>
-          <td>{{ beca.fecha_inicio }}</td>
-          <td>{{ beca.fecha_fin ?? '—' }}</td>
-          <td class="actions-cell">
-            <button class="btn-edit" (click)="abrirEditar(beca)">Editar</button>
-            <button class="btn-delete" (click)="eliminar(beca.estudios)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Formulario Crear / Editar -->
-  <div class="form-card" *ngIf="modoFormulario !== null">
-    <h2>{{ modoFormulario === 'crear' ? 'Nueva Beca' : 'Editar Beca' }}</h2>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label>ID Estudios</label>
-        <input type="number" [(ngModel)]="formulario.estudios"
-               [disabled]="modoFormulario === 'editar'" />
-      </div>
-      <div class="form-group">
-        <label>Tipo</label>
-        <input type="text" [(ngModel)]="formulario.tipo" maxlength="45" />
-      </div>
-      <div class="form-group">
-        <label>Institución</label>
-        <input type="text" [(ngModel)]="formulario.institucion" maxlength="80" />
-      </div>
-      <div class="form-group">
-        <label>Fecha Inicio</label>
-        <input type="date" [(ngModel)]="formulario.fecha_inicio" />
-      </div>
-      <div class="form-group">
-        <label>Fecha Fin</label>
-        <input type="date" [(ngModel)]="formulario.fecha_fin" />
+  <!-- ── VISTA LISTAR ── -->
+  <div *ngIf="vista === 'listar'">
+    <div class="page-header">
+      <div class="header-info">
+        <h1>Estudios Realizados</h1>
+        <p>Seleccione un estudio para ver o gestionar su beca asociada.</p>
       </div>
     </div>
 
-    <div class="form-actions">
-      <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
-      <button class="btn-primary" (click)="guardar()">Guardar</button>
+    <div class="table-wrapper">
+      <div *ngIf="cargando" class="loading">Cargando...</div>
+      <table class="data-table" *ngIf="!cargando">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Universidad</th>
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estudio of estudios">
+            <td>{{ estudio.id }}</td>
+            <td>{{ estudio.titulo }}</td>
+            <td>{{ estudio.universidad }}</td>
+            <td><span class="badge">{{ estudio.tipo }}</span></td>
+            <td>{{ estudio.fecha }}</td>
+            <td class="actions-cell">
+              <button class="btn-edit" (click)="verEstudio(estudio)">Ver Beca</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── VISTA VER ── -->
+  <div *ngIf="vista === 'ver' && estudioActual">
+    <div class="page-header">
+      <button class="btn-secondary" (click)="volver()">← Volver</button>
+    </div>
+
+    <!-- Tarjeta del maestro (Estudio) -->
+    <div class="form-card mb">
+      <h2>Estudio Realizado — Maestro</h2>
+      <div class="form-grid">
+        <div class="detail-item">
+          <label>ID</label>
+          <span>{{ estudioActual.id }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Título</label>
+          <span>{{ estudioActual.titulo }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Universidad</label>
+          <span>{{ estudioActual.universidad }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Tipo</label>
+          <span>{{ estudioActual.tipo }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Fecha</label>
+          <span>{{ estudioActual.fecha }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta del detalle (Beca) -->
+    <div class="form-card">
+      <h2>Beca Asociada — Detalle</h2>
+
+      <div *ngIf="becaActual; else sinBeca">
+        <div class="form-grid">
+          <div class="detail-item">
+            <label>Tipo</label>
+            <span>{{ becaActual.tipo }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Institución</label>
+            <span>{{ becaActual.institucion }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Fecha Inicio</label>
+            <span>{{ becaActual.fecha_inicio }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Fecha Fin</label>
+            <span>{{ becaActual.fecha_fin ?? '—' }}</span>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-edit" (click)="abrirEditar(becaActual)">Editar Beca</button>
+          <button class="btn-delete" (click)="eliminar(becaActual.estudios?.id ?? becaActual.estudios)">Eliminar Beca</button>
+        </div>
+      </div>
+
+      <ng-template #sinBeca>
+        <p style="color: #6b7280;">Este estudio no tiene beca registrada.</p>
+        <button class="btn-primary" (click)="abrirCrear(estudioActual)">+ Registrar Beca</button>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- ── VISTA FORMULARIO ── -->
+  <div *ngIf="vista === 'formulario'">
+    <div class="page-header">
+      <button class="btn-secondary" (click)="volver()">← Volver</button>
+    </div>
+    <div class="form-card">
+      <h2>{{ editando ? 'Editar Beca' : 'Registrar Nueva Beca' }}</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>ID Estudios</label>
+          <input type="number" [(ngModel)]="formulario.estudios" [disabled]="true" />
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <input type="text" [(ngModel)]="formulario.tipo" maxlength="45" />
+        </div>
+        <div class="form-group">
+          <label>Institución</label>
+          <input type="text" [(ngModel)]="formulario.institucion" maxlength="80" />
+        </div>
+        <div class="form-group">
+          <label>Fecha Inicio</label>
+          <input type="date" [(ngModel)]="formulario.fecha_inicio" />
+        </div>
+        <div class="form-group">
+          <label>Fecha Fin</label>
+          <input type="date" [(ngModel)]="formulario.fecha_fin" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="volver()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()">Guardar</button>
+      </div>
     </div>
   </div>
 
