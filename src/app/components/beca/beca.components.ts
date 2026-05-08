@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BecaService } from '../../services/beca.service';
+import { EstudiosRealizadosService } from '../../services/estudios-realizados.service';
 import { becasp_create, becasp_delete } from '../../models/Beca';
 
 @Component({
@@ -28,36 +29,61 @@ export class BecaComponent implements OnInit {
     institucion: '', fecha_inicio: '', fecha_fin: null
   };
 
-  constructor(private becaService: BecaService) {}
+  constructor(
+    private becaService: BecaService,
+    private estudiosService: EstudiosRealizadosService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.cargarEstudios();
   }
 
   // VISTA LISTAR
- cargarEstudios(): void {
-  this.cargando = true;
-  this.becaService.getEstudiosRealizados().subscribe({
-    next: (data: any) => {
-      this.estudios = data;
-      this.cargando = false;
-    },
-    error: (err) => {
-      console.error('Error cargando estudios:', err);
-      this.cargando = false;
-    }
-  });
-}
+  cargarEstudios(): void {
+    this.cargando = true;
+    this.estudiosService.getEstudiosRealizados().subscribe({
+      next: (response: any) => {
+        this.estudios = (response?.resultados || response?.Resultados || (Array.isArray(response) ? response : [])) as any[];
+        this.cargando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando estudios:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  abrirCrearGeneral(): void {
+    this.editando = false;
+    this.estudioActual = null;
+    this.formulario = {
+      nombreSP: '', estudios: 0, tipo: '',
+      institucion: '', fecha_inicio: '', fecha_fin: null
+    };
+    this.vista = 'formulario';
+  }
 
   // VISTA VER
   verEstudio(estudio: any): void {
     this.estudioActual = estudio;
-    // Buscar si ese estudio tiene beca asociada
-    this.becaService.getBecas().subscribe((becas: any) => {
-      this.becaActual = becas.find(
-        (b: any) => b.estudios?.id === estudio.id || b.estudios === estudio.id
-      ) ?? null;
-      this.vista = 'ver';
+    this.becaService.getBecas().subscribe({
+      next: (response: any) => {
+        const becas = (response?.resultados || response?.Resultados || (Array.isArray(response) ? response : [])) as any[];
+        this.becaActual = becas.find(
+          (b: any) => b.estudios?.id === estudio.id || b.estudios === estudio.id
+        ) ?? null;
+        this.vista = 'ver';
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando becas:', err);
+        this.becaActual = null;
+        this.vista = 'ver';
+        this.cdr.detectChanges();
+      }
     });
   }
 

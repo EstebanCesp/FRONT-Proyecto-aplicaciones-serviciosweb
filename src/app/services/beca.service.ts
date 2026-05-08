@@ -10,14 +10,8 @@ export class BecaService {
 
   constructor(private apiService: ApiService) {}
 
-  // Trae todos los estudios realizados (maestro)
   getEstudiosRealizados() {
-    return this.apiService.get('/estudios_realizados');
-  }
-
-  // Trae la beca de un estudio específico (detalle)
-  getBecaPorEstudio(estudios: number) {
-    const data: becasp_read = { nombreSP: 'sp_leer_beca' };
+    const data: becasp_read = { nombreSP: 'sp_leer_estudios_realizados' };
     return this.apiService.post(this.endpoint, data);
   }
 

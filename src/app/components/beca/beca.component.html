@@ -4,9 +4,10 @@
   <div *ngIf="vista === 'listar'">
     <div class="page-header">
       <div class="header-info">
-        <h1>Estudios Realizados</h1>
+        <h1>Becas</h1>
         <p>Seleccione un estudio para ver o gestionar su beca asociada.</p>
       </div>
+      <button class="btn-primary" (click)="abrirCrearGeneral()">+ Registrar Beca</button>
     </div>
 
     <div class="table-wrapper">
@@ -117,7 +118,7 @@
       <div class="form-grid">
         <div class="form-group">
           <label>ID Estudios</label>
-          <input type="number" [(ngModel)]="formulario.estudios" [disabled]="true" />
+          <input type="number" [(ngModel)]="formulario.estudios" [disabled]="estudioActual !== null" />
         </div>
         <div class="form-group">
           <label>Tipo</label>
