@@ -35,13 +35,19 @@ export class BecaComponent implements OnInit {
   }
 
   // VISTA LISTAR
-  cargarEstudios(): void {
-    this.cargando = true;
-    this.becaService.getEstudiosRealizados().subscribe((data: any) => {
+ cargarEstudios(): void {
+  this.cargando = true;
+  this.becaService.getEstudiosRealizados().subscribe({
+    next: (data: any) => {
       this.estudios = data;
       this.cargando = false;
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Error cargando estudios:', err);
+      this.cargando = false;
+    }
+  });
+}
 
   // VISTA VER
   verEstudio(estudio: any): void {
