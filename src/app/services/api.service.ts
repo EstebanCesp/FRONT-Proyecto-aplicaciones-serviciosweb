@@ -18,8 +18,8 @@ export class ApiService{
         return this.http.post(this.baseUrl+endpoint, data)
     }
 
-    put(endpoint :string, campoIdent:string, valorIdent:any , data:any){
-        return this.http.put(this.baseUrl+endpoint+'/'+campoIdent+'/'+valorIdent, data)
+    put(endpoint :string, campoIdent:string, valorIdent:any, data:any, query?:string){
+        return this.http.put(this.baseUrl+endpoint+'/'+campoIdent+'/'+valorIdent+query, data)
     }
 
     delete(endpoint :string, campoIdent:string, valorIdent:any){
