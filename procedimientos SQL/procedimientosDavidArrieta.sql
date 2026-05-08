@@ -259,20 +259,19 @@ CREATE PROCEDURE dbo.sp_leer_estudios_realizados
 AS
 BEGIN
     SET NOCOUNT ON;
-    (SELECT
-        id,
-        titulo,
-        universidad,
-        fecha,
-        tipo,
-        ciudad,
-        (SELECT * FROM docente WHERE docente = cedula FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) as docente,
-        ins_acreditada,
-        metodologia,
-        perfil_egresado,
-        pais
-    FROM dbo.estudios_realizados
-    );
+    SELECT
+        er.id,
+        er.titulo,
+        er.universidad,
+        er.fecha,
+        er.tipo,
+        er.ciudad,
+        (SELECT d.* FROM dbo.docente d WHERE d.cedula = er.docente FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) as datos_docente,
+        er.ins_acreditada,
+        er.metodologia,
+        er.perfil_egresado,
+        er.pais
+    FROM dbo.estudios_realizados er;
 END
 
 CREATE PROCEDURE dbo.sp_crear_estudios_realizados(

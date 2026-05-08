@@ -31,7 +31,8 @@
             <td><span class="badge">{{ estudio.tipo }}</span></td>
             <td>{{ estudio.fecha }}</td>
             <td class="actions-cell">
-              <button class="btn-edit" (click)="verEstudio(estudio)">Ver Beca</button>
+              <button class="btn-edit" (click)="verEstudio(estudio)">Ver</button>
+              <button class="btn-primary" (click)="abrirCrear(estudio)">+ Beca</button>
             </td>
           </tr>
         </tbody>

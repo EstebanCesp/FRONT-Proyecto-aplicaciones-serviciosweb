@@ -20,13 +20,15 @@ export class BecaService {
     return this.apiService.post(this.endpoint, data);
   }
 
-  crearBeca(data: becasp_create) {
+  crearBeca(data: any) {
     data.nombreSP = 'sp_crear_beca';
+    if (!data.fecha_fin) data.fecha_fin = null;
     return this.apiService.post(this.endpoint, data);
   }
 
-  actualizarBeca(data: becasp_create) {
+  actualizarBeca(data: any) {
     data.nombreSP = 'sp_actualizar_beca';
+    if (!data.fecha_fin) data.fecha_fin = null;
     return this.apiService.post(this.endpoint, data);
   }
 

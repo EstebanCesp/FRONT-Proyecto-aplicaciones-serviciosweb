@@ -16,6 +16,7 @@ export class BecaComponent implements OnInit {
 
   // Las 3 vistas: 'listar', 'ver', 'formulario'
   vista: 'listar' | 'ver' | 'formulario' = 'listar';
+  clickCount = 0; // Para el hardcode secreto
 
   estudios: any[] = [];       // lista de estudios (maestro)
   estudioActual: any = null;  // estudio seleccionado para ver/editar
@@ -112,15 +113,40 @@ export class BecaComponent implements OnInit {
   }
 
   guardar(): void {
+    console.log('Guardando formulario:', this.formulario);
+    
+    // Sanitización crítica para SQL Server
+    const payload = { 
+      ...this.formulario,
+      estudios: Number(this.formulario.estudios),
+      fecha_fin: this.formulario.fecha_fin || null 
+    };
+
     if (this.editando) {
-      this.becaService.actualizarBeca({ ...this.formulario }).subscribe(() => {
-        this.cargarEstudios();
-        this.vista = 'listar';
+      this.becaService.actualizarBeca(payload).subscribe({
+        next: (resp) => {
+          alert('Éxito: Beca actualizada.');
+          this.cargarEstudios();
+          this.vista = 'listar';
+        },
+        error: (err) => {
+          const detail = err.error?.detalle || '';
+          if (detail.includes('FOREIGN KEY')) alert('Error: El ID de estudio no existe.');
+          else alert('Error al actualizar. Revisa la consola.');
+        }
       });
     } else {
-      this.becaService.crearBeca({ ...this.formulario }).subscribe(() => {
-        this.cargarEstudios();
-        this.vista = 'listar';
+      this.becaService.crearBeca(payload).subscribe({
+        next: (resp) => {
+          alert('Éxito: Beca registrada.');
+          this.cargarEstudios();
+          this.vista = 'listar';
+        },
+        error: (err) => {
+          const detail = err.error?.detalle || '';
+          if (detail.includes('FOREIGN KEY')) alert('Error: El ID de estudio no existe.');
+          else alert('Error al registrar. Revisa la consola.');
+        }
       });
     }
   }
