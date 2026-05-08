@@ -23,14 +23,16 @@ export class DocentesService {
     return this.apiService.get('/linea_investigacion');
   }
 
-  crearDocente(data:docente_Create){
-    data.nombreSP = 'sp_crear_docente'
-    return this.apiService.post(this.endpoint, data)
+  crearDocente(data:any){
+    data.nombreSP = 'sp_crear_docente';
+    data.p_resultado = "";
+    return this.apiService.post(this.endpoint, data);
   }
 
-  actualizarDocente(data:docente_Create){
-    data.nombreSP = 'sp_actualizar_docente'
-    return this.apiService.post(this.endpoint, data)
+  actualizarDocente(data:any){
+    data.nombreSP = 'sp_actualizar_docente';
+    data.p_resultado = "";
+    return this.apiService.post(this.endpoint, data);
   }
 
   eliminarDocente(data:docente_Delete){

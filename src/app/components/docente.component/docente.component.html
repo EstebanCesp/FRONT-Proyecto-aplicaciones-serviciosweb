@@ -27,6 +27,7 @@
                     <td>{{ docente.correo }}</td>
                     <td>{{ docente.linea_investigacion.nombre }}</td>
                     <td class="celda_acciones">
+                        <button type="button" class="btn_accion btn_editar" (click)="verEstudios(docente)">Ver Estudios</button>
                         <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(docente)">Editar</button>
                         <button type="button" class="btn_accion btn_eliminar" (click)="eliminar(docente)">Eliminar</button>
                     </td>
@@ -119,6 +120,51 @@
         <div class="form-actions">
             <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
             <button class="btn-secondary" (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+    <!-- ── SECCIÓN MAESTRO-DETALLE (ESTUDIOS) ── -->
+    <div class="maestro_detalle" *ngIf="docenteSeleccionado" style="margin-top: 40px; border-top: 3px solid #2563eb; padding-top: 30px;">
+        <div class="detail-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <div>
+                <h2 style="margin:0; color: #1a1a2e;">Estudios de: {{ docenteSeleccionado.nombres }} {{ docenteSeleccionado.apellidos }}</h2>
+                <p style="margin: 4px 0 0; color: #6b7280;">Gestionando el detalle académico del docente (Cédula: {{ docenteSeleccionado.cedula }})</p>
+            </div>
+            <button class="btn-secondary" (click)="cerrarEstudios()">Cerrar Detalle</button>
+        </div>
+
+        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+            <div style="background: #eff6ff; padding: 20px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                <span style="font-size: 12px; color: #1d4ed8; font-weight: 700; text-transform: uppercase;">Total Estudios</span>
+                <h3 style="margin: 8px 0 0; font-size: 24px;">{{ estudiosDelDocente.length }}</h3>
+            </div>
+        </div>
+        
+        <div *ngIf="cargandoEstudios" style="text-align: center; padding: 40px;">Cargando detalles...</div>
+        
+        <div class="table-wrapper" *ngIf="!cargandoEstudios">
+            <table class="tabla">
+                <thead class="tabla_cabecera">
+                    <tr>
+                        <th>ID</th>
+                        <th>TÍTULO</th>
+                        <th>UNIVERSIDAD</th>
+                        <th>FECHA</th>
+                        <th>TIPO</th>
+                    </tr>
+                </thead>
+                <tbody class="cuerpo_tabla">
+                    <tr *ngFor="let estudio of estudiosDelDocente" class="linea_dato">
+                        <td>{{ estudio.id }}</td>
+                        <td style="font-weight: 600;">{{ estudio.titulo }}</td>
+                        <td>{{ estudio.universidad }}</td>
+                        <td>{{ estudio.fecha }}</td>
+                        <td><span style="background: #f3f4f6; padding: 4px 10px; border-radius: 12px; font-size: 11px;">{{ estudio.tipo }}</span></td>
+                    </tr>
+                    <tr *ngIf="estudiosDelDocente.length === 0">
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #9ca3af;">No hay estudios registrados para este docente.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
