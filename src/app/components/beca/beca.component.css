@@ -214,3 +214,30 @@
 .btn-secondary:hover {
   background: #f9fafb;
 }
+.mb {
+  margin-bottom: 24px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-item label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.detail-item span {
+  font-size: 15px;
+  color: #1a1a2e;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+}
