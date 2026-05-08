@@ -1,0 +1,114 @@
+<div class="contenedor_general">
+  <header class="cabecera_contenido">
+   <div class="cabecera_texto">
+     <h1 class="titulo_listado">Listado de Estudios Realizados</h1>
+     <p class="descripcion_listado">Administre los estudios realizados.</p>
+   </div>
+   <button type="button" class="btn_registrar" (click)="abrirCrear()" >Registrar Estudio Realizado</button>
+  </header>
+  
+  <div class="contenedor_tabla">
+   <table class="tabla">
+     <thead class="tabla_cabecera">
+       <tr>
+        
+         <th>TITULO</th>
+         <th>UNIVERSIDAD</th>
+         <th>DOCENTE</th>
+         <th>CEDULA DOCENTE</th>
+         <th>FECHA</th>
+         <th>TIPO</th>
+         <th>CIUDAD</th>
+         <th>PAIS</th>
+         <th>METODOLOGIA</th>
+         <th>ACCIONES</th>
+       </tr>   
+     </thead>
+     <tbody class="cuerpo_tabla">
+       <tr *ngFor="let estudios_realizados of listaEstudiosRealizados" class="linea_dato">
+         
+         <td>{{ estudios_realizados.titulo }}</td>
+         <td>{{ estudios_realizados.universidad }}</td>
+         <td>{{ estudios_realizados.docente.nombres }} {{ estudios_realizados.docente.apellidos }}</td>
+         <td>{{ estudios_realizados.docente.cedula }}</td>
+         <td>{{ estudios_realizados.fecha | date }}</td>
+         <td>{{ estudios_realizados.tipo }}</td>
+         <td>{{ estudios_realizados.ciudad }}</td>
+         <td>{{ estudios_realizados.pais }}</td>
+         <td>{{ estudios_realizados.metodologia }}</td> 
+         <td class="celda_acciones">
+           <button type="button" class="btn_accion btn_editar" (click)="abrirEditar(estudios_realizados)" >Editar</button>
+           <button type="button" class="btn_accion btn_eliminar" (click)="eliminar(estudios_realizados)">Eliminar</button>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+  </div>
+  <div class="form-card" *ngIf="modoFormulario !== null">
+   <h2>{{ modoFormulario === 'crear' ? 'Nuevo Estudio Realizado' : 'Editar Estudio Realizado' }}</h2>
+   <div class="form-grid">
+     <div class="form-group">
+        <div class="form-group">
+       <label>Id</label>
+       <input type="number" [(ngModel)]="Formulario.id" [disabled]="modoFormulario === 'editar'" />
+     </div>
+       <label>Titulo</label>
+       <input type="text" [(ngModel)]="Formulario.titulo" />
+     </div>
+     <div class="form-group">
+       <label>Universidad</label>
+         <input type="text" [(ngModel)]="Formulario.universidad" />
+     </div>
+     <div class="form-group">
+       <label>Fecha</label>
+       <input type="date" [(ngModel)]="Formulario.fecha" />
+     </div>
+     <div class="form-group">
+         <label>Tipo</label>
+            <input type="text" [(ngModel)]="Formulario.tipo" />
+     </div>
+     <div class="form-group">
+         <label>Ciudad</label>
+         <input type="text" [(ngModel)]="Formulario.ciudad" />
+       </div>
+     <div class="form-group">
+       <label>Docente</label>
+         <select [(ngModel)]="Formulario.docente">
+            <option value="null">Seleccione un docente</option>
+            <option *ngFor="let docente of listaDocentes" [value]="docente.cedula">{{docente.nombres}} {{docente.apellidos}}</option>
+         </select>
+     </div>
+     <div class="form-group">
+       <label>Institución acreditada</label> 
+         <select [(ngModel)]="Formulario.ins_acreditada">
+            <option value="null">Seleccione una opción</option>
+            <option value="1">Sí</option>
+            <option value="0">No</option>
+         </select>
+     </div>
+     <div class="form-group">
+       <label>Metodología</label> 
+         <select [(ngModel)]="Formulario.metodologia">
+            <option value="null">Seleccione una opción</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Virtual">Virtual</option>
+            <option value="Híbrida">Híbrida</option>
+         </select>
+     </div>
+     <div class="form-group">
+       <label>Perfil egresado</label> 
+            <input type="text" [(ngModel)]="Formulario.perfil_egresado" />
+         
+     </div>
+     <div class="form-group">
+       <label>País</label> 
+            <input type="text" [(ngModel)]="Formulario.pais" />
+     </div>
+   </div>
+   <div class="form-actions">
+     <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+     <button class="btn-secondary" (click)="guardar()">Guardar</button>
+   </div>
+  </div>
+</div>
+
