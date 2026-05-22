@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DocentesService } from '../../services/docentes.service';
 import { docenteResponse, docente_Create} from '../../models/docente';
+import { EstudiosRealizadosService } from '../../services/estudios-realizados.service';
 import { linea_investigacion } from '../../models/linea_investigacion';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -38,8 +39,16 @@ export class DocenteComponent implements OnInit{
     linea_investigacion:0
   }
   modoFormulario: 'crear' | 'editar' | null = null;
+  vista: 'listar' | 'ver' | 'formulario' = 'listar';
+  docenteSeleccionado: docenteResponse | null = null;
+  estudiosDelDocente: any[] = [];
+  cargandoEstudios = false;
 
-  constructor(private docenteService: DocentesService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private docenteService: DocentesService, 
+    private estudiosService: EstudiosRealizadosService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.obtenerDocentes();
@@ -49,16 +58,53 @@ export class DocenteComponent implements OnInit{
   obtenerDocentes(){
     this.docenteService.getDocentes().subscribe({
       next: (response: any) => {
-        this.listaDocentes = (response?.resultados ?? (Array.isArray(response) ? response : [])) as docenteResponse[];
-        for(let registro of this.listaDocentes){
-          registro.linea_investigacion = JSON.parse(registro.linea_investigacion);
+        const datos = (response?.resultados || response?.Resultados || (Array.isArray(response) ? response : [])) as any[];
+        
+        for(let registro of datos){
+          if (typeof registro.linea_investigacion === 'string') {
+            try { registro.linea_investigacion = JSON.parse(registro.linea_investigacion); } 
+            catch(e) { registro.linea_investigacion = { nombre: registro.linea_investigacion }; }
+          }
         }
+
+        this.listaDocentes = datos as docenteResponse[];
         this.cdr.detectChanges();
-        console.log(this.listaDocentes);      },
+      },
       error: (error) => {
-        console.log(error);
+        console.error(error);
+        this.listaDocentes = [];
+        this.cdr.detectChanges();
       }
     });
+  }
+
+  verEstudios(docente: docenteResponse) {
+    this.docenteSeleccionado = docente;
+    this.vista = 'ver';
+    this.cargandoEstudios = true;
+    this.estudiosDelDocente = [];
+    
+    this.estudiosService.getEstudiosRealizados().subscribe({
+      next: (resp: any) => {
+        const todos = (resp?.resultados || resp?.Resultados || (Array.isArray(resp) ? resp : [])) as any[];
+        this.estudiosDelDocente = todos.filter(e => {
+          const docId = e.docente?.cedula || e.docente;
+          return docId === docente.cedula;
+        });
+        this.cargandoEstudios = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.cargandoEstudios = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  cerrarEstudios() {
+    this.docenteSeleccionado = null;
+    this.vista = 'listar';
+    this.estudiosDelDocente = [];
   }
 
   obtenerLineasInvestigacion(){
@@ -73,8 +119,10 @@ export class DocenteComponent implements OnInit{
     });
   }
   eliminar(datos: docenteResponse){
-    this.docenteService.eliminarDocente({nombreSP:'', cedula:datos.cedula}).subscribe({
+    if (!confirm('¿Está seguro de eliminar este docente?')) return;
+    this.docenteService.eliminarDocente({nombreSP:'sp_eliminar_docente', cedula:datos.cedula}).subscribe({
       next: () => {
+        alert('Docente eliminado');
         this.obtenerDocentes();
       },
       error: (error) => {
@@ -130,23 +178,27 @@ export class DocenteComponent implements OnInit{
     if(this.modoFormulario === 'crear'){
       this.docenteService.crearDocente(this.Formulario).subscribe({
         next: () => {
+          alert('Éxito: Docente registrado.');
           this.obtenerDocentes();
+          this.modoFormulario = null;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
+          alert('Error al crear docente.');
         }
       });
-      this.modoFormulario = null;
     }else{
       this.docenteService.actualizarDocente(this.Formulario).subscribe({
         next: () => {
+          alert('Éxito: Docente actualizado.');
           this.obtenerDocentes();
+          this.modoFormulario = null;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
+          alert('Error al actualizar docente.');
         }
       });
-      this.modoFormulario = null;
     }
   }
   cancelar(){

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BecaService } from '../../services/beca.service';
+import { EstudiosRealizadosService } from '../../services/estudios-realizados.service';
 import { becasp_create, becasp_delete } from '../../models/Beca';
 
 @Component({
@@ -15,6 +16,7 @@ export class BecaComponent implements OnInit {
 
   // Las 3 vistas: 'listar', 'ver', 'formulario'
   vista: 'listar' | 'ver' | 'formulario' = 'listar';
+  clickCount = 0; // Para el hardcode secreto
 
   estudios: any[] = [];       // lista de estudios (maestro)
   estudioActual: any = null;  // estudio seleccionado para ver/editar
@@ -28,36 +30,61 @@ export class BecaComponent implements OnInit {
     institucion: '', fecha_inicio: '', fecha_fin: null
   };
 
-  constructor(private becaService: BecaService) {}
+  constructor(
+    private becaService: BecaService,
+    private estudiosService: EstudiosRealizadosService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.cargarEstudios();
   }
 
   // VISTA LISTAR
- cargarEstudios(): void {
-  this.cargando = true;
-  this.becaService.getEstudiosRealizados().subscribe({
-    next: (data: any) => {
-      this.estudios = data;
-      this.cargando = false;
-    },
-    error: (err) => {
-      console.error('Error cargando estudios:', err);
-      this.cargando = false;
-    }
-  });
-}
+  cargarEstudios(): void {
+    this.cargando = true;
+    this.estudiosService.getEstudiosRealizados().subscribe({
+      next: (response: any) => {
+        this.estudios = (response?.resultados || response?.Resultados || (Array.isArray(response) ? response : [])) as any[];
+        this.cargando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando estudios:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  abrirCrearGeneral(): void {
+    this.editando = false;
+    this.estudioActual = null;
+    this.formulario = {
+      nombreSP: '', estudios: 0, tipo: '',
+      institucion: '', fecha_inicio: '', fecha_fin: null
+    };
+    this.vista = 'formulario';
+  }
 
   // VISTA VER
   verEstudio(estudio: any): void {
     this.estudioActual = estudio;
-    // Buscar si ese estudio tiene beca asociada
-    this.becaService.getBecas().subscribe((becas: any) => {
-      this.becaActual = becas.find(
-        (b: any) => b.estudios?.id === estudio.id || b.estudios === estudio.id
-      ) ?? null;
-      this.vista = 'ver';
+    this.becaService.getBecas().subscribe({
+      next: (response: any) => {
+        const becas = (response?.resultados || response?.Resultados || (Array.isArray(response) ? response : [])) as any[];
+        this.becaActual = becas.find(
+          (b: any) => b.estudios?.id === estudio.id || b.estudios === estudio.id
+        ) ?? null;
+        this.vista = 'ver';
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando becas:', err);
+        this.becaActual = null;
+        this.vista = 'ver';
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -86,15 +113,40 @@ export class BecaComponent implements OnInit {
   }
 
   guardar(): void {
+    console.log('Guardando formulario:', this.formulario);
+    
+    // Sanitización crítica para SQL Server
+    const payload = { 
+      ...this.formulario,
+      estudios: Number(this.formulario.estudios),
+      fecha_fin: this.formulario.fecha_fin || null 
+    };
+
     if (this.editando) {
-      this.becaService.actualizarBeca({ ...this.formulario }).subscribe(() => {
-        this.cargarEstudios();
-        this.vista = 'listar';
+      this.becaService.actualizarBeca(payload).subscribe({
+        next: (resp) => {
+          alert('Éxito: Beca actualizada.');
+          this.cargarEstudios();
+          this.vista = 'listar';
+        },
+        error: (err) => {
+          const detail = err.error?.detalle || '';
+          if (detail.includes('FOREIGN KEY')) alert('Error: El ID de estudio no existe.');
+          else alert('Error al actualizar. Revisa la consola.');
+        }
       });
     } else {
-      this.becaService.crearBeca({ ...this.formulario }).subscribe(() => {
-        this.cargarEstudios();
-        this.vista = 'listar';
+      this.becaService.crearBeca(payload).subscribe({
+        next: (resp) => {
+          alert('Éxito: Beca registrada.');
+          this.cargarEstudios();
+          this.vista = 'listar';
+        },
+        error: (err) => {
+          const detail = err.error?.detalle || '';
+          if (detail.includes('FOREIGN KEY')) alert('Error: El ID de estudio no existe.');
+          else alert('Error al registrar. Revisa la consola.');
+        }
       });
     }
   }
