@@ -62,9 +62,11 @@ insert into rutarol (fkidrol, fkidruta) values
 (2, 7);
 
 insert into rol_usuario (fkemail, fkidrol) values
-('estebancespedesg@gmail.com', 1)
+('estebancespedesg@gmail.com', 2)
+--contrasena: Cespedes12
 insert into rol_usuario (fkemail, fkidrol) values
 ('carolinagomez1132493@correo.itm.edu.co', 1)
+--contrasena:CaroGom21
 
 DELETE FROM rol_usuario WHERE fkemail = 'carolinagomez1132493@correo.itm.edu.co'
 
@@ -82,5 +84,5 @@ BEGIN
 	INNER JOIN rol ON rol_usuario.fkidrol = rol.id
 	INNER JOIN rutarol ON rol.id = rutarol.fkidrol
 	INNER JOIN ruta ON rutarol.fkidruta = ruta.id
-	WHERE u.email = 'estebancespedesg@gmail.com';
+	WHERE u.email = @email;
 END;
